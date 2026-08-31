@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>無虛 HTML 生成記錄 — 2026年08月月度報告</title>
+<style>
+  /* ⚠️ 老花版強制規則：文件/閱讀型 32px base，手機 26px minimum */
+  html { font-size: 32px; }
+  @media (max-width: 600px) { html { font-size: 26px; } }
+
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@300;400;500;700;900&display=swap');
+
+  :root {
+    --bg: #0f1117;
+    --card-bg: #1a1d28;
+    --card-border: #2a2d3a;
+    --text: #e2e4e9;
+    --text-muted: #8b8fa3;
+    --accent: #6c8cff;
+    --accent-glow: rgba(108,140,255,0.15);
+    --success: #4ade80;
+    --warning: #fbbf24;
+    --danger: #f87171;
+    --chart-1: #6c8cff;
+    --chart-2: #4ade80;
+    --chart-3: #fbbf24;
+    --chart-4: #f87171;
+    --chart-5: #a78bfa;
+    --chart-6: #38bdf8;
+    --chart-7: #fb7185;
+    --gradient: linear-gradient(135deg, #6c8cff 0%, #a78bfa 50%, #38bdf8 100%);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans HK', 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 2.0;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 48px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-icon {
+    font-size: 1.8em;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .header h1 {
+    font-size: 1.5em;
+    font-weight: 700;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    z-index: 1;
+  }
+  .header .subtitle {
+    color: var(--text-muted);
+    font-size: 0.75em;
+    margin-top: 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+  }
+  .card h2 {
+    font-size: 1em;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card h2 .icon { font-size: 1.2em; }
+
+  /* KPI Grid */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .kpi-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 24px;
+    text-align: center;
+    transition: border-color 0.2s;
+  }
+  .kpi-card:hover { border-color: var(--accent); }
+  .kpi-value {
+    font-size: 2em;
+    font-weight: 900;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .kpi-value.zero {
+    background: none;
+    -webkit-text-fill-color: var(--text-muted);
+    color: var(--text-muted);
+  }
+  .kpi-value.big {
+    font-size: 2.2em;
+  }
+  .kpi-label {
+    font-size: 0.7em;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* Chart Area */
+  .chart-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 640px) {
+    .chart-row { grid-template-columns: 1fr; }
+  }
+
+  .chart-box {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .chart-box h3 {
+    font-size: 0.8em;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  /* CSS Pie Chart (conic-gradient donut) */
+  .pie-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .donut {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: conic-gradient(
+      var(--chart-1) 0deg 190.4deg,
+      var(--chart-2) 190.4deg 241.3deg,
+      var(--chart-3) 241.3deg 287.0deg,
+      var(--chart-4) 287.0deg 313.0deg,
+      var(--chart-5) 313.0deg 337.8deg,
+      var(--chart-6) 337.8deg 360deg
+    );
+    position: relative;
+    flex-shrink: 0;
+  }
+  .donut::after {
+    content: '276';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+    background: var(--bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4em;
+    font-weight: 900;
+    color: var(--text);
+  }
+  .pie-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.7em;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .legend-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .legend-label { color: var(--text-muted); min-width: 60px; }
+  .legend-count { font-weight: 700; color: var(--text); }
+  .legend-pct { color: var(--text-muted); }
+
+  /* Bar */
+  .bar-list { display: flex; flex-direction: column; gap: 12px; }
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .bar-label {
+    min-width: 55px;
+    font-size: 0.7em;
+    color: var(--text-muted);
+    text-align: right;
+  }
+  .bar-track {
+    flex: 1;
+    height: 26px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    font-size: 0.65em;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+  }
+  .bar-num { font-size: 0.7em; color: var(--text-muted); min-width: 32px; text-align: right; }
+
+  /* Trend Table */
+  .trend-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.75em;
+  }
+  .trend-table th {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--card-border);
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .trend-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .trend-up { color: var(--success); }
+  .trend-down { color: var(--danger); }
+  .trend-badge {
+    display: inline-block;
+    padding: 2px 12px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 600;
+  }
+  .badge-up { background: rgba(74,222,128,0.15); color: var(--success); }
+  .badge-new { background: rgba(108,140,255,0.18); color: var(--accent); }
+
+  /* Insight callouts */
+  .callout {
+    padding: 16px 20px;
+    border-radius: 10px;
+    margin-top: 16px;
+    font-size: 0.75em;
+    border-left: 4px solid var(--warning);
+    background: rgba(251,191,36,0.06);
+    color: var(--text);
+  }
+  .callout strong { color: var(--warning); }
+
+  /* Recommendations */
+  .rec-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .rec-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 10px;
+    border-left: 3px solid var(--accent);
+  }
+  .rec-num {
+    background: var(--accent);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7em;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .rec-content { flex: 1; }
+  .rec-title { font-weight: 600; margin-bottom: 2px; font-size: 0.8em; }
+  .rec-desc { font-size: 0.7em; color: var(--text-muted); }
+  code {
+    background: rgba(108,140,255,0.12);
+    color: var(--accent);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+
+  /* Top queries */
+  .top-list { display: flex; flex-direction: column; gap: 12px; }
+  .top-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 10px;
+  }
+  .top-rank {
+    font-size: 1em;
+    font-weight: 900;
+    color: var(--accent);
+    min-width: 40px;
+    text-align: center;
+  }
+  .top-content { flex: 1; }
+  .top-title { font-weight: 600; font-size: 0.8em; }
+  .top-desc { font-size: 0.7em; color: var(--text-muted); }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 32px;
+    color: var(--text-muted);
+    font-size: 0.65em;
+    border-top: 1px solid var(--card-border);
+    margin-top: 32px;
+  }
+  .footer strong { color: var(--accent); font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ===== HEADER ===== -->
+  <div class="header">
+    <div class="header-icon">📊</div>
+    <h1>無虛 HTML 生成記錄 — 2026年08月月度報告</h1>
+    <div class="subtitle">mo mo · 自動化月度統計分析 · 生成日期：2026-09-01</div>
+  </div>
+
+  <!-- ===== KPI CARDS ===== -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-value big">276</div>
+      <div class="kpi-label">📄 08月 HTML 生成量</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">256</div>
+      <div class="kpi-label">📅 07月 HTML 生成量</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">▲ +7.8%</div>
+      <div class="kpi-label">📈 環比變化（+20 份）</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">6</div>
+      <div class="kpi-label">🏷️ 活躍分類數</div>
+    </div>
+  </div>
+
+  <!-- ===== CHARTS ROW ===== -->
+  <div class="chart-row">
+
+    <!-- Pie Chart: CSS conic-gradient -->
+    <div class="chart-box">
+      <h3>🎯 分類佔比（Pie Chart）</h3>
+      <div class="pie-container">
+        <div class="donut"></div>
+        <div class="pie-legend">
+          <div class="legend-item">
+            <span class="legend-dot" style="background:var(--chart-1)"></span>
+            <span class="legend-label">數據</span>
+            <span class="legend-count">146</span>
+            <span class="legend-pct">52.9%</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background:var(--chart-2)"></span>
+            <span class="legend-label">比較</span>
+            <span class="legend-count">39</span>
+            <span class="legend-pct">14.1%</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background:var(--chart-3)"></span>
+            <span class="legend-label">計劃</span>
+            <span class="legend-count">35</span>
+            <span class="legend-pct">12.7%</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background:var(--chart-4)"></span>
+            <span class="legend-label">教學</span>
+            <span class="legend-count">20</span>
+            <span class="legend-pct">7.2%</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background:var(--chart-5)"></span>
+            <span class="legend-label">其他</span>
+            <span class="legend-count">19</span>
+            <span class="legend-pct">6.9%</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background:var(--chart-6)"></span>
+            <span class="legend-label">分析</span>
+            <span class="legend-count">17</span>
+            <span class="legend-pct">6.2%</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background:var(--chart-7)"></span>
+            <span class="legend-label">統計</span>
+            <span class="legend-count">0</span>
+            <span class="legend-pct">0.0%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bar Chart -->
+    <div class="chart-box">
+      <h3>📊 分類分佈（Bar Chart）</h3>
+      <div class="bar-list">
+        <div class="bar-row">
+          <span class="bar-label">數據</span>
+          <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--chart-1)">146</div></div>
+          <span class="bar-num">52.9%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">比較</span>
+          <div class="bar-track"><div class="bar-fill" style="width:27%;background:var(--chart-2)">39</div></div>
+          <span class="bar-num">14.1%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">計劃</span>
+          <div class="bar-track"><div class="bar-fill" style="width:24%;background:var(--chart-3)">35</div></div>
+          <span class="bar-num">12.7%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">教學</span>
+          <div class="bar-track"><div class="bar-fill" style="width:14%;background:var(--chart-4)">20</div></div>
+          <span class="bar-num">7.2%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">其他</span>
+          <div class="bar-track"><div class="bar-fill" style="width:13%;background:var(--chart-5)">19</div></div>
+          <span class="bar-num">6.9%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">分析</span>
+          <div class="bar-track"><div class="bar-fill" style="width:12%;background:var(--chart-6)">17</div></div>
+          <span class="bar-num">6.2%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">統計</span>
+          <div class="bar-track"><div class="bar-fill" style="width:0%;background:var(--chart-7)"></div></div>
+          <span class="bar-num">0%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TREND ANALYSIS ===== -->
+  <div class="card">
+    <h2><span class="icon">📈</span> 趨勢分析 — 環比對比</h2>
+    <table class="trend-table">
+      <thead>
+        <tr>
+          <th>月份</th>
+          <th>HTML 生成量</th>
+          <th>活躍分類數</th>
+          <th>最常見分類</th>
+          <th>趨勢</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2026 年 5 月</td>
+          <td>0</td>
+          <td>0</td>
+          <td>—</td>
+          <td><span class="trend-badge badge-up">無數據</span></td>
+        </tr>
+        <tr>
+          <td>2026 年 6 月</td>
+          <td>0</td>
+          <td>0</td>
+          <td>—</td>
+          <td><span class="trend-badge badge-up">無數據</span></td>
+        </tr>
+        <tr>
+          <td>2026 年 7 月</td>
+          <td><strong style="color:var(--success);font-size:1.2em;">256</strong></td>
+          <td>6</td>
+          <td>數據（股票分析）</td>
+          <td><span class="trend-badge badge-new">🚀 由零爆發</span></td>
+        </tr>
+        <tr>
+          <td><strong>2026 年 8 月</strong></td>
+          <td><strong style="color:var(--success);font-size:1.2em;">276</strong></td>
+          <td>6</td>
+          <td>數據（股票分析）</td>
+          <td><span class="trend-badge badge-up">📈 穩定增長 +7.8%</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <strong>📌 重點：</strong>8 月總量 <strong>276 份</strong>，比 7 月（256 份）多 <strong>20 份（+7.8%）</strong>，連續第二個月站穩 250+ 水平。
+      最大變化係「比較」類由 7 份暴增至 <strong>39 份</strong>（+457%）——歐洲機票比較 ＋ 定期存款利率比較每星期更新；
+      「其他」類因為今個月起用咗<b>更新版分類標準</b>，由 83 份修正至 19 份，反映到 8 月歐洲之旅研究同創意項目嘅真實分佈。
+    </div>
+  </div>
+
+  <!-- ===== CATEGORY COMPARISON ===== -->
+  <div class="card">
+    <h2><span class="icon">🔀</span> 分類對比 — 07月 vs 08月</h2>
+    <table class="trend-table">
+      <thead>
+        <tr>
+          <th>分類</th>
+          <th>07月</th>
+          <th>08月</th>
+          <th>變化</th>
+          <th>佔比變化</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>數據</td>
+          <td>175</td>
+          <td>146</td>
+          <td class="trend-down">▼ -29</td>
+          <td class="trend-down">68.4% → 52.9%</td>
+        </tr>
+        <tr>
+          <td>比較</td>
+          <td>7</td>
+          <td>39</td>
+          <td class="trend-up">▲ +32</td>
+          <td class="trend-up">2.7% → 14.1%</td>
+        </tr>
+        <tr>
+          <td>計劃</td>
+          <td>32</td>
+          <td>35</td>
+          <td class="trend-up">▲ +3</td>
+          <td class="trend-up">12.5% → 12.7%</td>
+        </tr>
+        <tr>
+          <td>教學</td>
+          <td>14</td>
+          <td>20</td>
+          <td class="trend-up">▲ +6</td>
+          <td class="trend-up">5.5% → 7.2%</td>
+        </tr>
+        <tr>
+          <td>其他</td>
+          <td>2</td>
+          <td>19</td>
+          <td class="trend-up">▲ +17</td>
+          <td class="trend-up">0.8% → 6.9%</td>
+        </tr>
+        <tr>
+          <td>分析</td>
+          <td>26</td>
+          <td>17</td>
+          <td class="trend-down">▼ -9</td>
+          <td class="trend-down">10.2% → 6.2%</td>
+        </tr>
+        <tr>
+          <td>統計</td>
+          <td>0</td>
+          <td>0</td>
+          <td>—</td>
+          <td>0% → 0%</td>
+        </tr>
+        <tr>
+          <td><strong>總計</strong></td>
+          <td><strong>256</strong></td>
+          <td><strong>276</strong></td>
+          <td class="trend-up"><strong>▲ +20</strong></td>
+          <td class="trend-up"><strong>+7.8%</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout">
+      <strong>📌 解讀：</strong>「數據」仍然係最大類（52.9%），但佔比由 68.4% 回落 —— 股票 cron 有部分日子只生成 2 份（收盤唔齊），
+      加上歐洲之旅同存款利率報告增多，令整體分佈更加多元。呢個係<b>健康嘅變化</b>：唔再一面倒係股票數據。
+    </div>
+  </div>
+
+  <!-- ===== TOP QUERIES ===== -->
+  <div class="card">
+    <h2><span class="icon">🔥</span> 最常見查詢類型 Top 6</h2>
+    <div class="top-list">
+      <div class="top-item">
+        <span class="top-rank">1</span>
+        <div class="top-content">
+          <div class="top-title">股票 697 每日報表（cron 自動）</div>
+          <div class="top-desc">午盤＋收盤 × 私人＋分享，8 月 21 個交易日，約 80 份，佔總量近三成（數據類主力）</div>
+        </div>
+      </div>
+      <div class="top-item">
+        <span class="top-rank">2</span>
+        <div class="top-content">
+          <div class="top-title">歐洲之旅研究系列</div>
+          <div class="top-desc">機票落地價比較／簽證／行程／咖啡店／酒區／博物館，08月07日至08月17日密集生成約 45 份（比較＋計劃＋教學類主力）</div>
+        </div>
+      </div>
+      <div class="top-item">
+        <span class="top-rank">3</span>
+        <div class="top-content">
+          <div class="top-title">定期存款利率比較</div>
+          <div class="top-desc">港元＋美元，08月01日至08月26日共 10 次更新，約 21 份（比較類支柱）</div>
+        </div>
+      </div>
+      <div class="top-item">
+        <span class="top-rank">4</span>
+        <div class="top-content">
+          <div class="top-title">CCASS 券商持倉分析（697）</div>
+          <div class="top-desc">每日 cron 分析，8 月 11 份，追蹤券商增減持同北水流向</div>
+        </div>
+      </div>
+      <div class="top-item">
+        <span class="top-rank">5</span>
+        <div class="top-content">
+          <div class="top-title">循環俠／負責任消費創意項目</div>
+          <div class="top-desc">計劃書＋遊戲與 App 研究＋MVP 功能清單＋角色展示頁，8 月 9 份（計劃類一部分）</div>
+        </div>
+      </div>
+      <div class="top-item">
+        <span class="top-rank">6</span>
+        <div class="top-content">
+          <div class="top-title">志工工具鏈（教學）</div>
+          <div class="top-desc">Ultimate Route Report、Photo GPS Extractor、Photo to Route Map、Volunteer Guide 等 9 份，0 token 自給自足</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== RECOMMENDATIONS ===== -->
+  <div class="card">
+    <h2><span class="icon">💡</span> 建議優化方向</h2>
+    <ul class="rec-list">
+      <li class="rec-item">
+        <span class="rec-num">1</span>
+        <div class="rec-content">
+          <div class="rec-title">⚠️ 修復記錄機制 — 連續第二個月最大隱患</div>
+          <div class="rec-desc">
+            <code>momo-html-records.json</code> 目前只有 <strong>17 條記錄</strong>，實際生成咗 <strong>276 份</strong> HTML
+            （覆蓋率僅 <strong>6.2%</strong>，比上個月 0.8% 好咗少少，但仍然嚴重不足）！而且記錄格式同 reference 定義嘅
+            <code>category / generated_html / html_paths</code> 結構唔一致（實際係 <code>type / title / content</code>）。
+            建議：統一格式 → 生成 HTML 後自動 append → cron 每日補齊。
+          </div>
+        </div>
+      </li>
+      <li class="rec-item">
+        <span class="rec-num">2</span>
+        <div class="rec-content">
+          <div class="rec-title">✅ 分類標準已更新（今次報告已採用）</div>
+          <div class="rec-desc">
+            舊 mapping 未覆蓋歐洲旅遊／機票／循環俠／翻譯／嫲嫲等 8 月新主題，令「其他」虛高至 83 份。
+            今次已加入新關鍵字（<code>europe / flight / 機票 / circlehero / 循環俠 / visa / 簽證 / 翻譯 / granny / 嫲嫲</code> 等），
+            「其他」修正至 19 份。稍後會正式 patch 入 <code>monthly-html-analysis.py</code>，下個月起自動生效。
+          </div>
+        </div>
+      </li>
+      <li class="rec-item">
+        <span class="rec-num">3</span>
+        <div class="rec-content">
+          <div class="rec-title">💾 股票報表檔案瘦身</div>
+          <div class="rec-desc">
+            8 月數據類 146 份，其中 697 每日報表（午盤＋收盤 × 私人＋分享）約 80 份，8 月底仲出現「收盤 2 個版本」（13:39/13:40 重複）。
+            建議：私人＋分享合併做一個檔案（URL 參數切換），或者舊檔自動歸檔壓縮，只保留最新。
+          </div>
+        </div>
+      </li>
+      <li class="rec-item">
+        <span class="rec-num">4</span>
+        <div class="rec-content">
+          <div class="rec-title">🧹 清理測試／驗證殘留檔案</div>
+          <div class="rec-desc">
+            「鞍山報告提取」folder 有 <code>app_v13_final / bugcheck / verify_deploy / latest_check</code> 等 deploy 驗證殘留，
+            8 月被當成「分析」類計入統計。建議測試用獨立 folder 或者定期刪除，保持正式輸出目錄乾淨。
+          </div>
+        </div>
+      </li>
+      <li class="rec-item">
+        <span class="rec-num">5</span>
+        <div class="rec-content">
+          <div class="rec-title">📊 「統計」分類連續兩個月空白</div>
+          <div class="rec-desc">
+            7 月同 8 月統計分類都係 0。其實呢份月度報告本身就係一種統計產出 —— 建議以後將每月統計、
+            趨勢分析、使用量報告都歸入「統計」類，等 7 分類全部有嘢睇。
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <div class="footer">
+    報告由 <strong>無虛（mo mo）</strong> 全自動生成 · 數據來源：<code>momo-html-records.json</code> ＋ <code>~/Documents/momo-html/</code> 檔案系統實掃<br>
+    統計口徑：以實際 HTML 檔案為準（記錄 JSON 覆蓋率僅 6.2%，已列入優化建議）；分類用 2026-08 更新版標準，07月數字以同一標準重掃<br>
+    下一份月度報告將會喺 <strong>2026 年 10 月 1 日</strong> 自動生成 · 到時見！👋
+  </div>
+
+</div>
+</body>
+</html>
