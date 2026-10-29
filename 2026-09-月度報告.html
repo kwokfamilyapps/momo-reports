@@ -264,8 +264,8 @@ code { font-family: "Cascadia Mono", Consolas, monospace; font-size: .9em; backg
 
   <h2>方法與口徑（可審核）</h2>
   <dl class="deflist">
-    <dt>掃描範圍</dt><dd><code>~/Documents/momo-html/</code>（全部子目錄，跳過 backups / _scratch / __pycache__）＋ <code>~/.hermes/html-reports/</code>（月度報告本身）。</dd>
-    <dt>剔除內部檔</dt><dd>共剔除 35 個 template／片段／暫存／驗證副本（<code>tpl-*.html</code>、<code>*_body*.html</code>、<code>*_section.html</code>、<code>verify_*.html</code>、<code>*_tpl.html</code> 等），因為佢哋唔係交付物。原始 HTML 總數 679，交付物 651。</dd>
+    <dt>掃描範圍</dt><dd><code>~/Documents/momo-html/</code>（全部子目錄，跳過 backups / _scratch / __pycache__）＋ <code>~/.hermes/html-reports/</code>（歷期月度報告）。本報告自己唔計入統計，避免自我循環。</dd>
+    <dt>剔除內部檔</dt><dd>共剔除 35 個 template／片段／暫存／驗證副本（<code>tpl-*.html</code>、<code>*_body*.html</code>、<code>*_section.html</code>、<code>verify_*.html</code>、<code>*_tpl.html</code> 等），因為佢哋唔係交付物。原始 HTML 總數 685，交付物 650（7–10 月全部）。</dd>
     <dt>月份判定</dt><dd>檔名有 <code>YYYYMMDD</code>／<code>YYYY-MM-DD</code> 就用檔名日期（9 月 69 份）；冇就用檔案修改時間（38 份）。</dd>
     <dt>分類</dt><dd>用路徑／檔名關鍵字 mapping 到 7 個標準分類（數據／統計／分析／計劃／教學／比較／其他），第一個命中為準。規則順序：數據（697／ccass／定存）→ 統計（月度報告）→ 比較（機票／找換／行李容積）→ 教學（guide／導賞／audio-guide）→ 計劃（行程／route／gogogo／train）→ 分析（圖鑑／鑑定／factcheck／博物館）→ 其他。</dd>
     <dt>資料來源</dt><dd>① 檔案系統實掃（真相來源）② <code>momo-html-records.json</code>（輔助，覆蓋率低）③ <code>cron/executions.db</code>（核對 cron 有冇跑）。</dd>
