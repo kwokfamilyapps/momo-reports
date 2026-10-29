@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hermes 事故診斷報告 — 2026-09-29 → 2026-10-29（30 日失聯）</title>
+<style>
+  html { font-size: 32px; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #f0e8d8;
+    color: #1a1a16;
+    font-family: -apple-system, "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    font-size: 1rem;
+    line-height: 2.0;
+    padding: 2.2rem 1.4rem 4rem;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  h1, h2, h3 { font-family: Georgia, "Times New Roman", "Noto Serif TC", serif; line-height: 1.35; }
+  h1 { font-size: 1.65rem; margin: 0 0 .4rem; color: #1a1a16; }
+  h2 { font-size: 1.3rem; margin: 2.6rem 0 .8rem; padding-bottom: .35rem; border-bottom: 3px solid #4a7c59; }
+  h3 { font-size: 1.08rem; margin: 1.8rem 0 .5rem; color: #2f6b4f; }
+  p { margin: .7rem 0; }
+  .sub { color: #5c5344; font-size: .82rem; margin: 0 0 1.4rem; }
+  .lede { font-size: .95rem; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin: 1.4rem 0 2rem; }
+  .card { background: #faf6ee; border: 2px solid #d8cdb8; border-left: 10px solid #4a7c59; border-radius: 10px; padding: .9rem 1.1rem; }
+  .card.bad { border-left-color: #a8321e; }
+  .card .k { font-size: .74rem; letter-spacing: .06em; color: #6b6252; text-transform: uppercase; }
+  .card .v { font-size: 1.25rem; font-weight: 700; font-family: Georgia, serif; margin-top: .2rem; }
+  .card .n { font-size: .76rem; color: #5c5344; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.6rem; background: #faf6ee; font-size: .84rem; }
+  caption { caption-side: top; text-align: left; font-size: .8rem; color: #5c5344; padding-bottom: .4rem; }
+  th, td { border: 1px solid #d8cdb8; padding: .55rem .7rem; text-align: left; vertical-align: top; line-height: 1.65; }
+  th { background: #e4dcc8; font-weight: 700; }
+  tbody tr:nth-child(even) { background: #f3ecdd; }
+  code { font-family: "Cascadia Mono", Consolas, monospace; font-size: .8em; background: #e8e0cc; padding: .1em .35em; border-radius: 4px; }
+  pre { background: #23231f; color: #efe9dc; padding: 1rem 1.1rem; border-radius: 10px; overflow-x: auto; font-size: .74rem; line-height: 1.7; }
+  pre code { background: none; color: inherit; padding: 0; font-size: 1em; }
+  .box { background: #faf6ee; border: 2px solid #d8cdb8; border-radius: 10px; padding: 1rem 1.2rem; margin: 1.2rem 0; }
+  .box.warn { border-color: #c8862a; background: #fbf3e2; }
+  .box.ok { border-color: #4a7c59; background: #f1f5ea; }
+  .box.crit { border-color: #a8321e; background: #f8e9e4; }
+  .tag { display: inline-block; font-size: .7rem; padding: .1rem .5rem; border-radius: 99px; font-weight: 700; vertical-align: middle; }
+  .t-ok { background: #4a7c59; color: #fff; }
+  .t-bad { background: #a8321e; color: #fff; }
+  .t-warn { background: #c8862a; color: #fff; }
+  .t-info { background: #5c5344; color: #fff; }
+  ul, ol { padding-left: 1.5rem; }
+  li { margin: .35rem 0; }
+  .mono { font-family: "Cascadia Mono", Consolas, monospace; font-size: .78rem; }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 2px solid #d8cdb8; color: #5c5344; font-size: .78rem; }
+  .scroll { overflow-x: auto; }
+  @media (max-width: 700px) {
+    html { font-size: 26px; }
+    body { padding: 1.2rem .8rem 3rem; }
+    h1 { font-size: 1.4rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Hermes 事故診斷報告<br>2026-09-29 → 2026-10-29（30 日失聯）</h1>
+  <p class="sub">私人版 · 由 無虛 (mo mo) 撰寫 · 報告日期 2026-10-29 · 全部結論附 log 證據</p>
+
+  <p class="lede">你旅行期間（9 月 29 日至 10 月 29 日）Telegram 完全冇反應。原因唔係網絡、唔係 API、亦唔係「冇人叫佢起身」——係 <strong>Gateway 於 9 月 29 日 22:45:33 死亡，而負責自動重啟嘅 watchdog 由第一秒開始就必定失敗</strong>，試足 42,929 次都起唔返，直到 10 月 29 日 13:02 你部機上嘅 installer 開返個新環境為止。</p>
+
+  <div class="cards">
+    <div class="card bad">
+      <div class="k">死亡時間</div>
+      <div class="v">9/29 22:45:33</div>
+      <div class="n">心跳最後一次（HKT）</div>
+    </div>
+    <div class="card bad">
+      <div class="k">失聯時長</div>
+      <div class="v">30 日 14 小時</div>
+      <div class="n">至 10/29 13:02 恢復</div>
+    </div>
+    <div class="card bad">
+      <div class="k">失敗重啟</div>
+      <div class="v">42,929 次</div>
+      <div class="n">每 30 秒一次，全部失敗</div>
+    </div>
+    <div class="card">
+      <div class="k">現狀</div>
+      <div class="v">已恢復 <span class="tag t-ok">OK</span></div>
+      <div class="n">Gateway PID 11804 · Telegram 雙連線</div>
+    </div>
+  </div>
+
+  <h2>一、事發時序（全部有 log 證據）</h2>
+  <div class="scroll">
+  <table>
+    <caption>時間全部為香港時間（HKT）。</caption>
+    <thead>
+      <tr><th style="width:22%">時間</th><th>事件</th><th style="width:30%">證據來源</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>9/26 16:11</td><td>Gateway（PID 19036）啟動，之後 3 日正常運作</td><td class="mono">gateway-exit-diag.log</td></tr>
+      <tr><td>9/29 22:44:00</td><td>Telegram 收到「布拉格8天深度遊介紹」，我開始查資料</td><td class="mono">gateway.log L26573</td></tr>
+      <tr><td>9/29 22:45:20–29</td><td>你按咗 4 次 Telegram 批准掣（都係 <code>python -c</code> / <code>curl</code> 類唯讀指令）</td><td class="mono">gateway.log L26574–26577</td></tr>
+      <tr><td><strong>9/29 22:45:33</strong></td><td><strong>Gateway 突然死亡</strong>：有心跳停止、無正常退出路徑（unclean exit），非記憶體爆（suspected_oom=false）</td><td class="mono">errors.log L6771</td></tr>
+      <tr><td><strong>9/29 22:45:47</strong></td><td>Watchdog 第一次嘗試重啟 → <code>ERROR spawning gateway:</code>（錯誤訊息空白，連原因都印唔出）</td><td class="mono">gateway-watchdog.log L238</td></tr>
+      <tr><td>9/29 → 10/29 13:02</td><td><strong>42,929 次</strong>失敗重啟（每 30 秒一次，log 脹到 4.5 MB）</td><td class="mono">grep -c 實測</td></tr>
+      <tr><td>10/28 02:58 / 12:27</td><td>你自己跑咗兩次 Hermes installer（模式 Install）</td><td class="mono">bootstrap-installer.log</td></tr>
+      <tr><td>10/29 12:13</td><td>Installer 跑 update → <strong>失敗</strong>：<code>uv trampoline failed to canonicalize script path</code></td><td class="mono">bootstrap-installer.log / update.log</td></tr>
+      <tr><td>10/29 13:02:50</td><td>新 Gateway（PID 11804）以<strong>管理員身份</strong>啟動 → 桌面 app 一度報 <code>gateway_elevated</code> 接唔到</td><td class="mono">desktop.log L340</td></tr>
+      <tr><td>10/29 13:07</td><td>Desktop 重新接上，Telegram 恢復（2 條 ESTABLISHED、pending=0）</td><td class="mono">desktop.log L728 + netstat</td></tr>
+      <tr><td>10/29 13:23</td><td>新 watchdog（v2026-10-29）安裝完成並生效</td><td class="mono">gateway-watchdog.log</td></tr>
+      <tr><td>10/29 13:24–13:27</td><td>28 個 cron job 全部恢復（另新增 1 個 update 提醒）</td><td class="mono">hermes cron list</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>二、真正死因：三個 bug 疊加</h2>
+
+  <h3>① Gateway 死嘅同一分鐘，Python 執行檔被整走</h3>
+  <pre><code>.venv\Scripts\  目錄修改時間 = 2026-09-29 22:45   ← 同 crash 同一分鐘
+裡面 41 個檔案仲在（hermes.exe、pip.exe、edge-tts.exe… mtime 全部 8月21）
+但 python.exe 同 pythonw.exe 已經冇咗               ← 只有呢兩隻</code></pre>
+  <p>已核實：<code>.venv</code> 其餘檔案完好、uv 嘅 base Python 3.11 完好（<code>python.exe</code> / <code>pythonw.exe</code> 都在）、新 venv 嘅 python 都在。<strong>只有舊 <code>.venv\Scripts</code> 嗰兩隻唔見</strong>。呢個模式唔似 uv / pip 操作（嗰啲會連 shim 一齊重寫），最似<strong>外部程序（防毒隔離／清理工具）拎走兩隻直譯器</strong>。</p>
+
+  <h3>② Watchdog 重啟指令指向一隻已經唔存在嘅執行檔</h3>
+  <pre><code>cmd = "...\hermes-agent\.venv\Scripts\pythonw.exe -m hermes_cli.main gateway run"
+                                  ^^^^^^^^^^ 已經被刪</code></pre>
+  <p>所以 42,929 次全部即刻失敗。WScript 嘅錯誤描述係空字串，所以 log 只有 <code>ERROR spawning gateway: </code>，<strong>連原因都冇得睇</strong>。</p>
+
+  <h3>③ Watchdog 嘅「死亡偵測」本身係盲嘅</h3>
+  <p>舊邏輯用「有冇 <code>hermes.exe</code> 或 <code>pythonw.exe</code> 呢個名嘅 process」判斷 gateway 生死。你部機長期有其他 <code>hermes.exe</code>（桌面 app 相關）→ 就算真 gateway 死咗，佢都會以為「仲行緊」而唔去救。</p>
+
+  <div class="box crit">
+    <strong>結論：</strong>呢次唔係「偶爾死機」，而係<strong>一個冇後備嘅單點失效</strong>——gateway 一死，唯一嘅救援者由第一秒開始就註定失敗，而且唔會通知你。你 30 日收唔到任何訊息，機器裡面亦冇任何機制發現「我已經 30 日冇同主人講過嘢」。
+  </div>
+
+  <h2>三、我已經排除嘅可能（唔係估，係逐項查過）</h2>
+  <div class="scroll">
+  <table>
+    <thead><tr><th style="width:34%">假設</th><th>查法</th><th style="width:14%">結果</th></tr></thead>
+    <tbody>
+      <tr><td>嗰晚嘅 agent 指令誤刪</td><td>讀晒 9/29 該 session 最後 20 條訊息：最後指令係 <code>python pg_fetch.py</code> 同匯率 <code>curl</code>，無任何 delete / rm / pip uninstall</td><td><span class="tag t-bad">排除</span></td></tr>
+      <tr><td><code>hermes update</code> 動到 venv</td><td>git reflog 9/29 無任何活動；update.log 9/29 無記錄</td><td><span class="tag t-bad">排除</span></td></tr>
+      <tr><td>Installer 動到 venv</td><td>bootstrap-installer.log 9/29 完全空白（上一次係 6/27，下一次係 10/27）</td><td><span class="tag t-bad">排除</span></td></tr>
+      <tr><td>記憶體爆 / 系統重啟</td><td>ledger 記錄 <code>suspected_oom=false</code>；watchdog 由 22:45:47 起一直有寫 log（機器冇熄機、冇睡死）</td><td><span class="tag t-bad">排除</span></td></tr>
+      <tr><td>網絡 / API 問題</td><td>同一時間 API 正常、Telegram 正常；死亡後係 spawn 失敗而唔係連線失敗</td><td><span class="tag t-bad">排除</span></td></tr>
+      <tr><td>防毒（ESET）隔離</td><td>ESET log 係專有二進位格式，需要喺 GUI 開；我讀唔到內容</td><td><span class="tag t-warn">未能證實</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="box warn">
+    <strong>誠實聲明：</strong>「邊個程序拎走 python.exe / pythonw.exe」我<strong>未能 100% 釘死</strong>。要釘死，就要去 ESET → 工具 → 記錄檔／隔離區，搵 9 月 29 日 22:45 前後有冇 <code>python.exe</code>、<code>pythonw.exe</code>。呢個要用 GUI 開，我唔會當「應該係防毒」講成事實。
+  </div>
+
+  <h2>四、修復內容（2026-10-29 13:23 完成）</h2>
+  <div class="scroll">
+  <table>
+    <thead><tr><th style="width:16%">項目</th><th style="width:28%">舊</th><th style="width:30%">新</th><th>為何</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>啟動指令</td>
+        <td class="mono">.venv\Scripts\pythonw.exe</td>
+        <td class="mono">.hermes\bin\hermes.exe gateway run</td>
+        <td>呢個 shim 由 installer 每次自動更新，唔會因為換 venv 而死</td>
+      </tr>
+      <tr>
+        <td>死亡偵測</td>
+        <td>睇 process 名存在（會假陽性）</td>
+        <td>睇 <code>state\gateway.heartbeat</code> 心跳檔案新鮮度（&gt;150 秒 = 死）</td>
+        <td>心跳係唯一可信訊號；實測每 10 秒寫一次</td>
+      </tr>
+      <tr>
+        <td>Log 管理</td>
+        <td>無限增長（已 4.5 MB / 42,929 行）</td>
+        <td>3 MB 自動 rotate</td>
+        <td>唔會再撐爆</td>
+      </tr>
+      <tr>
+        <td>自我診斷</td>
+        <td>無</td>
+        <td><code>cscript Hermes_Gateway.vbs /check</code> 直接印生死</td>
+        <td>下次有懷疑，一句就驗到</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p>原檔已備份：<code>Hermes_Gateway.vbs.bak-20261029</code> 及 <code>Hermes_Gateway.vbs.bak2-20261029</code>；新版源檔保留為 <code>Hermes_Gateway_v20261029.vbs</code>。要回滾隨時覆蓋返即可。</p>
+
+  <h3>Cron 任務</h3>
+  <ul>
+    <li>28 個原有 job 全部由 <span class="tag t-bad">paused</span> 轉為 <span class="tag t-ok">active</span>（旅行前 pause 到當日）。</li>
+    <li>「沉香手串進度追蹤」係一次性任務，原定 10/6 已過期 → 重設為 <strong>10/30 07:30</strong> 執行。</li>
+    <li>新增 1 個一次性提醒：<strong>10/31 10:00「乾淨 hermes update 提醒」</strong>（今日嘅 update 半失敗，要喺你在場時重做）。</li>
+    <li>修好 <code>record_697_signals.py</code>：新 runtime（Python 3.14）冇 yfinance → 加自動 re-exec 去 uv Python 3.11.15，已驗證 import 成功。</li>
+  </ul>
+
+  <h2>五、驗證結果（實測，非聲稱）</h2>
+  <div class="scroll">
+  <table>
+    <thead><tr><th style="width:40%">測試</th><th>結果</th><th style="width:14%">判定</th></tr></thead>
+    <tbody>
+      <tr><td>新 watchdog 語法 + 自我檢查</td><td><code>IsGatewayRunning=True</code></td><td><span class="tag t-ok">通過</span></td></tr>
+      <tr><td>心跳新鮮（實測 5 秒前）</td><td>判定「運行中」→ 唔會亂 spawn</td><td><span class="tag t-ok">通過</span></td></tr>
+      <tr><td>模擬心跳改成 9/29 14:45（30 日前）</td><td><code>IsGatewayRunning=False</code> → 會觸發重啟</td><td><span class="tag t-ok">通過</span></td></tr>
+      <tr><td>心跳檔案完全唔存在</td><td>回退舊方法 → <code>True</code>（安全網）</td><td><span class="tag t-ok">通過</span></td></tr>
+      <tr><td>啟動器可用性</td><td><code>hermes gateway status</code> → ✓ Gateway process running (PID 11804)</td><td><span class="tag t-ok">通過</span></td></tr>
+      <tr><td>舊 watchdog 已替換</td><td>舊 wscript 已停（0 個），新 wscript PID 19740 運行中，log 印 “Watchdog started (v2026-10-29)”</td><td><span class="tag t-ok">通過</span></td></tr>
+      <tr><td>Telegram 連線</td><td>2 條 ESTABLISHED（149.154.166.110，PID 11804）、<code>pending_update_count=0</code></td><td><span class="tag t-ok">通過</span></td></tr>
+      <tr><td>Cron → Telegram 實際送出</td><td>13:25:29 成功送出 1217 字元到 chat 8967498595</td><td><span class="tag t-ok">通過</span></td></tr>
+      <tr><td>697 逐筆價格記錄</td><td>13:26 失敗 → 13:27 起 completed</td><td><span class="tag t-ok">通過</span></td></tr>
+      <tr><td>697 訊號記錄（收市後）</td><td>已修正 yfinance re-exec；今日 16:10 會首次實跑驗證</td><td><span class="tag t-warn">待驗</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>六、仍然存在嘅風險（唔修就會再中）</h2>
+  <div class="scroll">
+  <table>
+    <thead><tr><th style="width:28%">風險</th><th>說明</th><th style="width:30%">建議</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Watchdog 自己死咗</strong></td>
+        <td>Task Scheduler 只有「登入時觸發一次」，如果 wscript 本身死（今次 9/8 就發生過），冇 keeper 會叫返佢起身。</td>
+        <td>下一步：加「每 5 分鐘重複觸發 + 忽略新例」設定（要改 Task Scheduler，等你批准）</td>
+      </tr>
+      <tr>
+        <td><strong>更新半失敗嘅殘留</strong></td>
+        <td>今日 installer update 失敗，<code>hermes-agent\venv</code>（Python 3.14）連 <code>yaml</code> 都 import 唔到；現時實際跑嘅係 <code>installs\273be…</code> 個 managed 環境（正常），但呢個殘留係定時炸彈。</td>
+        <td>10/31 喺你面前做一次乾淨 update</td>
+      </tr>
+      <tr>
+        <td><strong>冇備份 50 日</strong></td>
+        <td>每日 backup job 由 9/8 起 paused，旅行期間完全冇備份。</td>
+        <td>已 resume；今晚 03:00 首次自動跑，我會核對結果</td>
+      </tr>
+      <tr>
+        <td><strong>697 每 2 分鐘通知</strong></td>
+        <td>歷史上呢類密集通知曾觸發 Telegram 429，令 gateway 收唔到訊息。</td>
+        <td>已核對：現時只有真正觸發（±$0.05）才輸出，13:25 一次正常；仍然會留意</td>
+      </tr>
+      <tr>
+        <td><strong>state.db 4.8 GB</strong></td>
+        <td>對話資料庫過大，會拖慢搜尋同備份。</td>
+        <td>清理舊 session（要你批准）</td>
+      </tr>
+      <tr>
+        <td><strong>舊 .venv 殘留</strong></td>
+        <td>無用、無直譯器，但仍有 1.2 GB 左右。</td>
+        <td>確認無引用後刪除（要你批准）</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="box ok">
+    <strong>一句總結：</strong>Gateway 本身冇「壞」，佢係被人抽走咗副引擎；而個後備司機手上嘅鎖匙，喺同一分鐘已經失效。今日之後，後備司機改用一把唔會消失嘅鎖匙（installer 每次自動更新嘅啟動器），而且用「心跳」而唔係「睇有冇人影」去判斷生死——再加一個可以一句話自測嘅指令。
+  </div>
+
+  <footer>
+    由 無虛 (mo mo) 生成 — 私人版本 · 2026-10-29 13:30 HKT<br>
+    所有數據取自本機 log 檔（gateway.log / errors.log / gateway-watchdog.log / gateway-exit-diag.log / bootstrap-installer.log / desktop.log）及即時實測指令輸出。
+  </footer>
+
+</div>
+</body>
+</html>
