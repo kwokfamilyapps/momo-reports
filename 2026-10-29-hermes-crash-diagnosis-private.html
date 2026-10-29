@@ -104,9 +104,10 @@
       <tr><td><strong>9/29 22:45:33</strong></td><td><strong>Gateway 突然死亡</strong>：有心跳停止、無正常退出路徑（unclean exit），非記憶體爆（suspected_oom=false）</td><td class="mono">errors.log L6771</td></tr>
       <tr><td><strong>9/29 22:45:47</strong></td><td>Watchdog 第一次嘗試重啟 → <code>ERROR spawning gateway:</code>（錯誤訊息空白，連原因都印唔出）</td><td class="mono">gateway-watchdog.log L238</td></tr>
       <tr><td>9/29 → 10/29 13:02</td><td><strong>42,929 次</strong>失敗重啟（每 30 秒一次，log 脹到 4.5 MB）</td><td class="mono">grep -c 實測</td></tr>
-      <tr><td>10/28 02:58 / 12:27</td><td>你自己跑咗兩次 Hermes installer（模式 Install）</td><td class="mono">bootstrap-installer.log</td></tr>
-      <tr><td>10/29 12:13</td><td>Installer 跑 update → <strong>失敗</strong>：<code>uv trampoline failed to canonicalize script path</code></td><td class="mono">bootstrap-installer.log / update.log</td></tr>
-      <tr><td>10/29 13:02:50</td><td>新 Gateway（PID 11804）以<strong>管理員身份</strong>啟動 → 桌面 app 一度報 <code>gateway_elevated</code> 接唔到</td><td class="mono">desktop.log L340</td></tr>
+      <tr><td>10/28 02:58 / 12:27</td><td><strong>你手動</strong>跑咗兩次 Hermes installer（模式 Install）</td><td class="mono">bootstrap-installer.log</td></tr>
+      <tr><td>10/29 12:13</td><td><strong>你手動</strong>跑 installer（Update 模式）→ <strong>失敗</strong>：<code>uv trampoline failed to canonicalize script path</code></td><td class="mono">bootstrap-installer.log / update.log</td></tr>
+      <tr><td>10/29 12:56</td><td><strong>你手動重裝完成</strong>：新 managed 環境 <code>installs\273be526775c27a8</code> 建成（bootstrap marker 寫入）</td><td class="mono">.hermes-bootstrap-complete</td></tr>
+      <tr><td>10/29 13:02:50</td><td><strong>你手動重啟 Gateway</strong>（管理員身份，PID 11804）→ 桌面 app 一度報 <code>gateway_elevated</code> 接唔到</td><td class="mono">desktop.log L340</td></tr>
       <tr><td>10/29 13:07</td><td>Desktop 重新接上，Telegram 恢復（2 條 ESTABLISHED、pending=0）</td><td class="mono">desktop.log L728 + netstat</td></tr>
       <tr><td>10/29 13:23</td><td>新 watchdog（v2026-10-29）安裝完成並生效</td><td class="mono">gateway-watchdog.log</td></tr>
       <tr><td>10/29 13:24–13:27</td><td>28 個 cron job 全部恢復（另新增 1 個 update 提醒）</td><td class="mono">hermes cron list</td></tr>
@@ -213,7 +214,33 @@
   </table>
   </div>
 
-  <h2>六、仍然存在嘅風險（唔修就會再中）</h2>
+  <h2>六、你今日手動重裝：完整性評估（<code>hermes doctor</code> 實測）</h2>
+  <div class="box ok">
+    <strong>結論：重裝本體成功，唔需要再重裝。</strong><code>hermes doctor</code> 確認 <strong>active runtime = <code>installs\273be526775c27a8\environments\0d5aef…\venv</code></strong>（即你今日新建嗰個），Python 3.14.9、SQLite 3.53.1、所有必需套件齊、config v52 最新、API key 就位。Gateway 亦正跑住呢個環境。
+  </div>
+  <div class="scroll">
+  <table>
+    <caption>hermes doctor（2026-10-29 13:33 實跑）</caption>
+    <thead><tr><th style="width:26%">檢查項</th><th>結果</th><th style="width:12%">判定</th></tr></thead>
+    <tbody>
+      <tr><td>Python 環境</td><td>3.14.9 · SQLite 3.53.1 · runtime venv staged 並 active</td><td><span class="tag t-ok">健康</span></td></tr>
+      <tr><td>必需套件</td><td>OpenAI SDK / Rich / dotenv / ruamel.yaml / HTTPX / Croniter / python-telegram-bot 全部 ✓</td><td><span class="tag t-ok">健康</span></td></tr>
+      <tr><td>設定檔</td><td>.env、config.yaml 存在，config version v52（最新），aux 路由全部解析成功</td><td><span class="tag t-ok">健康</span></td></tr>
+      <tr><td>安全</td><td>無 active security advisory、無可疑 MCP stdio 指令</td><td><span class="tag t-ok">健康</span></td></tr>
+      <tr><td>Skills Hub / Memory</td><td>目錄 + lock 檔正常（7 個 hub skill）、GitHub token 有效、內建記憶生效</td><td><span class="tag t-ok">健康</span></td></tr>
+      <tr><td>state.db</td><td><strong>4.5 GB</strong>，WAL 模式，另有大型 WAL 檔</td><td><span class="tag t-warn">要處理</span></td></tr>
+      <tr><td>舊 venv 殘留</td><td><code>hermes-agent\venv</code>（無 deps）、<code>hermes-agent\.venv</code>（無直譯器）兩份都唔再用</td><td><span class="tag t-warn">要清理</span></td></tr>
+      <tr><td>Legacy config</td><td><code>custom_providers</code> 內 <code>kilo</code> / <code>nvidia</code> 未遷去 <code>providers:</code>；<code>display.tool_progress_overrides</code> 已棄用</td><td><span class="tag t-warn">小問題</span></td></tr>
+      <tr><td>可選插件</td><td>discord / x_search 缺 token、a2a / feishu / yuanbao 缺系統依賴</td><td><span class="tag t-info">不用理</span></td></tr>
+      <tr><td>npm 相依</td><td>root 1 個、web 1 個、ui-tui 2 個已知漏洞，等上游修</td><td><span class="tag t-info">等上游</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="box warn">
+    <strong>醫生建議嘅首要動作：</strong><code>state.db</code> 4.5 GB 要離線優化 —— 要開 <code>sessions.auto_prune</code>，並<strong>先停 gateway</strong> 再跑 <code>hermes sessions optimize-storage</code>（會令 Telegram 中斷幾分鐘，所以要你批准）。
+  </div>
+
+  <h2>七、仍然存在嘅風險（唔修就會再中）</h2>
   <div class="scroll">
   <table>
     <thead><tr><th style="width:28%">風險</th><th>說明</th><th style="width:30%">建議</th></tr></thead>
@@ -224,9 +251,9 @@
         <td>下一步：加「每 5 分鐘重複觸發 + 忽略新例」設定（要改 Task Scheduler，等你批准）</td>
       </tr>
       <tr>
-        <td><strong>更新半失敗嘅殘留</strong></td>
-        <td>今日 installer update 失敗，<code>hermes-agent\venv</code>（Python 3.14）連 <code>yaml</code> 都 import 唔到；現時實際跑嘅係 <code>installs\273be…</code> 個 managed 環境（正常），但呢個殘留係定時炸彈。</td>
-        <td>10/31 喺你面前做一次乾淨 update</td>
+        <td><strong>重裝後嘅殘留（兩份舊 venv）</strong></td>
+        <td><code>hermes-agent\venv</code>（Python 3.14 但缺 deps）同 <code>hermes-agent\.venv</code>（連直譯器都冇）都已經唔再被使用，但 PATH 裡面仍有 <code>hermes-agent\venv\Scripts</code> 呢條路徑。</td>
+        <td>確認無引用後刪除兩份舊 venv（要你批准），令 PATH 只剩有效嘅 <code>.hermes\bin</code></td>
       </tr>
       <tr>
         <td><strong>冇備份 50 日</strong></td>
@@ -239,14 +266,14 @@
         <td>已核對：現時只有真正觸發（±$0.05）才輸出，13:25 一次正常；仍然會留意</td>
       </tr>
       <tr>
-        <td><strong>state.db 4.8 GB</strong></td>
-        <td>對話資料庫過大，會拖慢搜尋同備份。</td>
-        <td>清理舊 session（要你批准）</td>
+        <td><strong>state.db 4.5 GB</strong></td>
+        <td>對話資料庫過大（另有大型 WAL 檔），會拖慢搜尋同備份；<code>hermes doctor</code> 明確列為第一號問題。</td>
+        <td>開 <code>sessions.auto_prune</code> + 停 gateway 後跑 <code>hermes sessions optimize-storage</code>（要你批准）</td>
       </tr>
       <tr>
-        <td><strong>舊 .venv 殘留</strong></td>
-        <td>無用、無直譯器，但仍有 1.2 GB 左右。</td>
-        <td>確認無引用後刪除（要你批准）</td>
+        <td><strong>2026-10-31 提醒任務</strong></td>
+        <td>排定做「乾淨 update」嘅一次性提醒已建立（10/31 10:00）；由於你今日重裝本體已成功，個提醒會改為「重裝完整性覆核 + 離線清理」。</td>
+        <td>到時按新議程執行</td>
       </tr>
     </tbody>
   </table>
