@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>無虛 HTML 生成記錄 — 2026年10月月度報告</title>
+<style>
+  html { font-size: 32px; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:#f0e8d8; color:#1a1a16; line-height:2.0;
+         font-family: -apple-system, "Segoe UI", "Microsoft JhengHei", "PingFang HK", sans-serif; }
+  .wrap { max-width: 1180px; margin:0 auto; padding: 0 1.1rem 4rem; }
+  h1, h2, h3 { font-family: Georgia, "Songti TC", "Noto Serif TC", serif; }
+  header.hero { background: linear-gradient(160deg,#2f4f36 0%, #3f6b45 55%, #557a4a 100%);
+     color:#f6f1e2; padding: 2.6rem 1.4rem 2.2rem; }
+  header.hero .inner { max-width:1180px; margin:0 auto; }
+  .kicker { letter-spacing:.32em; text-transform:uppercase; font-size:.7rem; opacity:.85; }
+  h1 { font-size: 1.75rem; line-height:1.45; margin:.5rem 0 .4rem; }
+  .sub { font-size:.78rem; opacity:.92; }
+  .wrap > section { margin-top: 2.2rem; }
+  .card { background:#fbf7ec; border:1px solid #d8cdb4; border-radius:16px; padding:1.2rem 1.2rem 1.4rem;
+           box-shadow: 0 2px 0 #e2d8c2; }
+  h2 { font-size:1.15rem; margin:0 0 .9rem; padding-bottom:.4rem; border-bottom:2px solid #cbbfa4; }
+  h2 .tag { font-size:.62rem; letter-spacing:.18em; color:#6b7a5e; display:block; font-family:sans-serif; }
+  h3 { font-size:.95rem; margin:1.3rem 0 .5rem; color:#2f4f36; }
+  .kpis { display:grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap:.9rem; }
+  .kpi { background:#fbf7ec; border:1px solid #d8cdb4; border-radius:14px; padding:.9rem 1rem; }
+  .kpi .lab { font-size:.62rem; letter-spacing:.14em; color:#6b7a5e; }
+  .kpi .val { font-family:Georgia,serif; font-size:1.55rem; line-height:1.3; color:#2f4f36; }
+  .kpi .cmp { font-size:.62rem; color:#7a6f5e; }
+  .neg { color:#a4402f; } .pos { color:#2f6b3e; }
+  .lead { font-size:.92rem; background:#f3ecda; border-left:8px solid #c9a227; border-radius:0 12px 12px 0;
+           padding:.9rem 1.1rem; }
+  .pie { display:grid; grid-template-columns: minmax(220px,300px) 1fr; gap:1.4rem; align-items:center; }
+  .pie svg { width:100%; height:auto; }
+  .pie .big { font-family:Georgia,serif; font-size:1.5rem; fill:#2f4f36; }
+  .pie .small { font-size:.5rem; fill:#6b7a5e; font-family:sans-serif; }
+  ul.legend { list-style:none; padding:0; margin:0; }
+  ul.legend li { display:flex; align-items:center; gap:.55rem; padding:.28rem 0; font-size:.8rem;
+                  border-bottom:1px dashed #ddd2b9; }
+  ul.legend .dot { width:1rem; height:1rem; border-radius:4px; flex:0 0 auto; }
+  ul.legend .num { margin-left:auto; color:#5c5442; font-size:.72rem; }
+  .barrow { display:flex; align-items:center; gap:.6rem; margin:.35rem 0; font-size:.78rem; }
+  .bl { width:4.2rem; flex:0 0 auto; }
+  .btrack { flex:1; background:#e6dcc6; border-radius:8px; height:1.05rem; overflow:hidden; }
+  .bfill { display:block; height:100%; border-radius:8px; }
+  .bv { width:8.2rem; flex:0 0 auto; text-align:right; font-size:.7rem; color:#5c5442; }
+  .tw { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .tw table { width:100%; border-collapse:collapse; font-size:.72rem; }
+  .tw th, .tw td { padding:.5rem .45rem; border-bottom:1px solid #ddd2b9; text-align:left; vertical-align:top; }
+  .tw th { background:#e9dfc9; font-size:.64rem; letter-spacing:.06em; }
+  .tw tr.cur td { background:#eef1e2; font-weight:600; }
+  .tw tr.tot td { background:#e9dfc9; font-weight:700; }
+  .rhythm { display:flex; gap:.18rem; align-items:flex-end; height:11rem; padding-top:.6rem; }
+  .dcol { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; }
+  .dbar { width:100%; border-radius:4px 4px 0 0; background:#9fb08c; min-height:2px; }
+  .dbar.hot { background:#3f6b45; }
+  .dbar.z { background:#ded3ba; }
+  .dnum { font-size:.5rem; color:#6b7a5e; margin-top:.15rem; }
+  .dday { font-size:.44rem; color:#8a8071; }
+  .note { font-size:.68rem; color:#6b6455; }
+  .find { border-left:8px solid #6b8f5e; background:#f6f1e0; border-radius:0 12px 12px 0;
+           padding:.85rem 1.1rem; margin:.9rem 0; }
+  .find b.t { display:block; font-size:.9rem; color:#2f4f36; font-family:Georgia,serif; }
+  .find p { margin:.3rem 0 0; font-size:.78rem; }
+  ol.adv { padding-left:1.4rem; margin:0; }
+  ol.adv > li { margin-bottom:1rem; font-size:.82rem; }
+  ol.adv > li > b { font-family:Georgia,serif; font-size:.92rem; color:#2f4f36; }
+  ol.adv p { margin:.3rem 0 0; }
+  .pill { display:inline-block; font-size:.55rem; letter-spacing:.12em; padding:.1rem .5rem; border-radius:999px;
+           background:#a4402f; color:#fbf7ec; vertical-align:middle; }
+  .pill.mid { background:#c9a227; color:#241f14; }
+  .pill.low { background:#6b8f5e; color:#fbf7ec; }
+  footer { margin-top:2.4rem; font-size:.66rem; color:#6b6455; border-top:2px solid #cbbfa4; padding-top:1rem; }
+  .hero-stats { display:flex; flex-wrap:wrap; gap:1.6rem; margin-top:1.3rem; }
+  .hero-stats div { font-size:.7rem; }
+  .hero-stats b { display:block; font-family:Georgia,serif; font-size:1.5rem; line-height:1.3; }
+  code { font-size:.85em; background:#efe6d2; padding:.05em .25em; border-radius:4px;
+          overflow-wrap:anywhere; word-break:break-word; }
+
+  @media (max-width: 640px) {
+    html { font-size: 26px; }
+    .pie { grid-template-columns: 1fr; }
+    .lead { font-size:1rem; }
+    .kicker, .sub, .hero-stats div { font-size:.8rem; }
+    /* bar chart rows wrap instead of overflowing */
+    .barrow { flex-wrap:wrap; font-size:.9rem; }
+    .bl { width:auto; }
+    .btrack { flex:1 1 100%; order:3; height:.8rem; }
+    .bv { width:auto; margin-left:auto; font-size:.8rem; }
+    .tw { overflow-x:visible; }
+    /* 31 日直條圖：手機壓縮，只顯示幾個日期標籤 */
+    .rhythm { gap:0; height:7.5rem; }
+    .dcol { min-width:0; }
+    .dnum { display:none; }
+    .dday { font-size:.42rem; }
+    .dday:not(.lab) { visibility:hidden; }
+    .tw table, .tw thead, .tw tbody, .tw tr, .tw td { display:block; width:100%; }
+    .tw thead { display:none; }
+    .tw table { font-size:1rem; }
+    .tw tr { background:#f4ecda; border-radius:.4rem; padding:.45rem .55rem;
+              margin-bottom:.5rem; border:.04rem solid #e0d3b6; }
+    .tw tr.cur { background:#eef1e2; }
+    .tw tr.tot { background:#e9dfc9; }
+    .tw td { border-bottom:none; padding:.18rem 0; font-size:1rem; line-height:1.75; white-space:normal; }
+    .tw td::before { content:attr(data-label); display:block; font-size:.72rem;
+                      color:#6b5f45; letter-spacing:.05em; line-height:1.4; }
+    .note, .find p, ol.adv > li { font-size:1rem; }
+  }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="inner">
+    <div class="kicker">mo mo · monthly analytics</div>
+    <h1>無虛 HTML 生成記錄 — 2026年10月月度報告</h1>
+    <div class="sub">自動化月度統計分析 · 生成日期：2026年11月1日 · 統計範圍：10月01日–10月31日</div>
+    <div class="hero-stats">
+      <div><b>51</b>份交付 HTML</div>
+      <div><b>35</b>個主題</div>
+      <div><b>0.65 MB</b>總體積</div>
+      <div><b>3</b>個活躍日</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="card">
+    <h2><span class="tag">executive summary</span>一句話總結</h2>
+    <p class="lead">10 月係「<b>三日起貨、四周空白</b>」嘅一個月 —— 全月 51 份、35 個主題，
+    但當中 <b>37 份（72.5%）集中喺 10月29日 一日</b>出貨；10月1–28 日連續 28 日零產出。
+    原因唔係偷懶，係你 9月10日–10月27日 喺歐洲旅行，返港之後 Hermes 又撞正 10月29日 嘅 crash 修復；
+    一修好就即刻補返 697 報表、錢幣鑑定、咖啡站台重建，三日內追回成個月嘅量。</p>
+    <p class="note">體積由 9 月嘅 98.6 MB 跌到 0.65 MB（▼99.3%），因為 9 月主力係內嵌相片＋粵語語音嘅導賞卡（每份 3–4 MB），
+    10 月主力係每份 10–30 KB 嘅文字報告。即係話：<b>「少」係因為冇做重型資產，「細」係因為全部係輕量報告</b>。</p>
+  </section>
+
+  <section>
+    <h2><span class="tag">key numbers</span>核心數字</h2>
+    <div class="kpis">
+      <div class="kpi"><div class="lab">10月 HTML 產量</div><div class="val">51 份</div>
+        <div class="cmp">9月 107 份 · 8月 262 份</div></div>
+      <div class="kpi"><div class="lab">環比變化</div><div class="val neg">▼ 52.3%</div>
+        <div class="cmp">比 9 月少 56 份</div></div>
+      <div class="kpi"><div class="lab">獨立主題</div><div class="val">35 個</div>
+        <div class="cmp">9月 56 個 · 檔案／主題 = 1.46</div></div>
+      <div class="kpi"><div class="lab">活躍日</div><div class="val">3 日</div>
+        <div class="cmp">9月 22 日 · 平均每日 17.0 份</div></div>
+      <div class="kpi"><div class="lab">最大類別</div><div class="val">數據</div>
+        <div class="cmp">25 份 · 49.0%（9 月係教學）</div></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2><span class="tag">distribution</span>分類佔比（Pie Chart）</h2>
+    <div class="pie">
+      <svg viewBox="0 0 120 120" role="img" aria-label="10月 HTML 分類圓餅圖">
+        <circle cx="60" cy="60" r="40.0" fill="none" stroke="#e6dcc6" stroke-width="22"></circle>
+        <circle cx="60" cy="60" r="40.0" fill="none" stroke="#3f6b45" stroke-width="22" stroke-dasharray="123.20 128.13" stroke-dashoffset="-0.00" transform="rotate(-90 60 60)"><title>數據 25 份 (49.0%)</title></circle><circle cx="60" cy="60" r="40.0" fill="none" stroke="#6b8f5e" stroke-width="22" stroke-dasharray="54.21 197.12" stroke-dashoffset="-123.20" transform="rotate(-90 60 60)"><title>分析 11 份 (21.6%)</title></circle><circle cx="60" cy="60" r="40.0" fill="none" stroke="#a8b58f" stroke-width="22" stroke-dasharray="54.21 197.12" stroke-dashoffset="-177.41" transform="rotate(-90 60 60)"><title>其他 11 份 (21.6%)</title></circle><circle cx="60" cy="60" r="40.0" fill="none" stroke="#c9a227" stroke-width="22" stroke-dasharray="9.86 241.47" stroke-dashoffset="-231.62" transform="rotate(-90 60 60)"><title>教學 2 份 (3.9%)</title></circle><circle cx="60" cy="60" r="40.0" fill="none" stroke="#8a6f4e" stroke-width="22" stroke-dasharray="4.93 246.40" stroke-dashoffset="-241.47" transform="rotate(-90 60 60)"><title>統計 1 份 (2.0%)</title></circle><circle cx="60" cy="60" r="40.0" fill="none" stroke="#b5724c" stroke-width="22" stroke-dasharray="4.93 246.40" stroke-dashoffset="-246.40" transform="rotate(-90 60 60)"><title>比較 1 份 (2.0%)</title></circle>
+        <text x="60" y="57" text-anchor="middle" class="big">51</text>
+        <text x="60" y="70" text-anchor="middle" class="small">份 HTML</text>
+      </svg>
+      <ul class="legend"><li><span class="dot" style="background:#3f6b45"></span><b>數據</b><span class="num">25 份 · 49.0%</span></li><li><span class="dot" style="background:#6b8f5e"></span><b>分析</b><span class="num">11 份 · 21.6%</span></li><li><span class="dot" style="background:#a8b58f"></span><b>其他</b><span class="num">11 份 · 21.6%</span></li><li><span class="dot" style="background:#c9a227"></span><b>教學</b><span class="num">2 份 · 3.9%</span></li><li><span class="dot" style="background:#8a6f4e"></span><b>統計</b><span class="num">1 份 · 2.0%</span></li><li><span class="dot" style="background:#b5724c"></span><b>比較</b><span class="num">1 份 · 2.0%</span></li><li><span class="dot" style="background:#7a7267"></span><b>計劃</b><span class="num">0 份 · 0.0%</span></li></ul>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2><span class="tag">distribution</span>分類分佈（Bar Chart）</h2>
+    <div class="barrow"><span class="bl">數據</span><span class="btrack"><span class="bfill" style="width:100.0%;background:#3f6b45"></span></span><span class="bv">25 · 49.0%</span></div><div class="barrow"><span class="bl">分析</span><span class="btrack"><span class="bfill" style="width:44.0%;background:#6b8f5e"></span></span><span class="bv">11 · 21.6%</span></div><div class="barrow"><span class="bl">其他</span><span class="btrack"><span class="bfill" style="width:44.0%;background:#a8b58f"></span></span><span class="bv">11 · 21.6%</span></div><div class="barrow"><span class="bl">教學</span><span class="btrack"><span class="bfill" style="width:8.0%;background:#c9a227"></span></span><span class="bv">2 · 3.9%</span></div><div class="barrow"><span class="bl">統計</span><span class="btrack"><span class="bfill" style="width:4.0%;background:#8a6f4e"></span></span><span class="bv">1 · 2.0%</span></div><div class="barrow"><span class="bl">比較</span><span class="btrack"><span class="bfill" style="width:4.0%;background:#b5724c"></span></span><span class="bv">1 · 2.0%</span></div><div class="barrow"><span class="bl">計劃</span><span class="btrack"><span class="bfill" style="width:0.0%;background:#7a7267"></span></span><span class="bv">0 · 0.0%</span></div>
+    <p class="note">口徑：一份檔（私人版／分享版分開計）為一個單位；分類以檔名關鍵字優先，冇關鍵字就用所在資料夾判斷。</p>
+  </section>
+
+  <section class="card">
+    <h2><span class="tag">comparison</span>分類對比 — 08月 → 09月 → 10月</h2>
+    <div class="tw"><table><thead><tr><th>分類</th><th>08月</th><th>09月</th><th>10月</th><th>佔比變化</th><th>09→10</th></tr></thead><tbody><tr class=""><td data-label="分類">數據</td><td data-label="08月">166</td><td data-label="09月">33</td><td data-label="10月"><b>25</b></td><td data-label="佔比變化">30.8% → 49.0%</td><td data-label="09→10"><span class="neg">▼ 8</span></td></tr><tr class=""><td data-label="分類">統計</td><td data-label="08月">1</td><td data-label="09月">1</td><td data-label="10月"><b>1</b></td><td data-label="佔比變化">0.9% → 2.0%</td><td data-label="09→10"><span class="">—</span></td></tr><tr class=""><td data-label="分類">分析</td><td data-label="08月">7</td><td data-label="09月">13</td><td data-label="10月"><b>11</b></td><td data-label="佔比變化">12.1% → 21.6%</td><td data-label="09→10"><span class="neg">▼ 2</span></td></tr><tr class=""><td data-label="分類">計劃</td><td data-label="08月">14</td><td data-label="09月">14</td><td data-label="10月"><b>0</b></td><td data-label="佔比變化">13.1% → 0.0%</td><td data-label="09→10"><span class="neg">▼ 14</span></td></tr><tr class=""><td data-label="分類">教學</td><td data-label="08月">5</td><td data-label="09月">36</td><td data-label="10月"><b>2</b></td><td data-label="佔比變化">33.6% → 3.9%</td><td data-label="09→10"><span class="neg">▼ 34</span></td></tr><tr class=""><td data-label="分類">比較</td><td data-label="08月">17</td><td data-label="09月">7</td><td data-label="10月"><b>1</b></td><td data-label="佔比變化">6.5% → 2.0%</td><td data-label="09→10"><span class="neg">▼ 6</span></td></tr><tr class=""><td data-label="分類">其他</td><td data-label="08月">52</td><td data-label="09月">3</td><td data-label="10月"><b>11</b></td><td data-label="佔比變化">2.8% → 21.6%</td><td data-label="09→10"><span class="pos">▲ +8</span></td></tr><tr class="tot"><td data-label="分類">總計</td><td data-label="08月">262</td><td data-label="09月">107</td><td data-label="10月"><b>51</b></td><td data-label="佔比變化">100%</td><td data-label="09→10"><span class="neg">▼ 56</span></td></tr></tbody></table></div>
+    <p class="note">「數據」由 9 月 33 份跌到 25 份，但佔比由 30.8% 升到 49.0% —— 因為分母縮得太快，唔係因為股票報表做多咗。
+    「計劃」類首次掛零（9 月 14 份全部係行程／路線／gogogo，旅行完就自然冇）。</p>
+  </section>
+
+  <section class="card">
+    <h2><span class="tag">trend</span>趨勢分析 — 四個月對比</h2>
+    <div class="tw"><table><thead><tr><th>月份</th><th>HTML 份數</th><th>獨立主題</th><th>總體積</th><th>每份平均</th><th>活躍日</th><th>最大類別</th><th>環比</th></tr></thead><tbody><tr class=""><td data-label="月份">2026年07月</td><td data-label="HTML 份數"><b>256</b></td><td data-label="獨立主題">127</td><td data-label="總體積">4.8 MB</td><td data-label="每份平均">19 KB</td><td data-label="活躍日">24</td><td data-label="最大類別">數據（180）</td><td data-label="環比"><span class="">— 基線</span></td></tr><tr class=""><td data-label="月份">2026年08月</td><td data-label="HTML 份數"><b>262</b></td><td data-label="獨立主題">121</td><td data-label="總體積">8.3 MB</td><td data-label="每份平均">32 KB</td><td data-label="活躍日">30</td><td data-label="最大類別">數據（166）</td><td data-label="環比"><span class="pos">▲ 2.3%</span></td></tr><tr class=""><td data-label="月份">2026年09月</td><td data-label="HTML 份數"><b>107</b></td><td data-label="獨立主題">56</td><td data-label="總體積">98.6 MB</td><td data-label="每份平均">944 KB</td><td data-label="活躍日">22</td><td data-label="最大類別">教學（36）</td><td data-label="環比"><span class="neg">▼ 59.2%</span></td></tr><tr class="cur"><td data-label="月份">2026年10月</td><td data-label="HTML 份數"><b>51</b></td><td data-label="獨立主題">35</td><td data-label="總體積">0.65 MB</td><td data-label="每份平均">13 KB</td><td data-label="活躍日">3</td><td data-label="最大類別">數據（25）</td><td data-label="環比"><span class="neg">▼ 52.3%</span></td></tr></tbody></table></div>
+    <h3>四個觀察</h3>
+    <div class="find"><b class="t">① 「產量」同「份量」係兩條唔同嘅線</b>
+      <p>7–8 月：每日幾十份、每份 19–40 KB（697 盤中報表）。9 月：107 份但 98.6 MB（導賞卡）。10 月：51 份 0.65 MB（純文字報告）。
+      所以「份數跌」唔等於「工作量跌」，「體積跌」亦唔等於「偷懶」—— 三個月其實係三種唔同嘅工作模式，跨月比份數要小心。</p></div>
+    <div class="find"><b class="t">② 10月29日 一日出 37 份（72.5%）＝ 修復補償效應</b>
+      <p>Hermes 10月29日 crash 修好之後，同一日內補做 697 午盤／收盤／daily／weekly、定存利率、9 月月度報告、
+      四份 hermes-guides、咖啡站台重建。呢個係「catch-up」而唔係「正常節奏」，所以「平均每日份數」參考價值有限。</p></div>
+    <div class="find"><b class="t">③ 697 系列斷流 51 日（09月08日 → 10月29日）</b>
+      <p>呢個係 9 月報告已經點出嘅問題，10 月證實：斷流期間冇任何提醒，亦冇執行記錄（<code>executions.db</code> 09月25日 起空白，
+      10月30日 才補跑 753 次）。實際影響：9月9日–10月28日 嘅盤中／收盤價冇 HTML 記錄，只可以靠券商 app 同 CSV 補。</p></div>
+    <div class="find"><b class="t">④ 雙版本檔佔 31 份（60.8%）</b>
+      <p>同 9 月一樣，一半以上產量係同一內容出私人版＋分享版。作對外交付係好習慣，但統計上會令「檔案數」虛高、
+      GitHub 上載次數加倍。所以本報告同時列「主題數」（35），作為更貼近真實工作量嘅指標。</p></div>
+  </section>
+
+  <section class="card">
+    <h2><span class="tag">top queries</span>最常見查詢類型 Top 6</h2>
+    <div class="tw"><table><thead><tr><th>#</th><th>類型</th><th>份數</th><th>佔比</th><th>代表產出</th></tr></thead><tbody><tr class=""><td data-label="#">1</td><td data-label="類型">697 首程控股自動股價報表</td><td data-label="份數"><b>25</b></td><td data-label="佔比">49.0%</td><td data-label="代表產出">10/29 午盤×4、收盤×2、intraday、daily、weekly；10/30 午盤、收盤×2、daily、weekly、close 雙版本</td></tr><tr class=""><td data-label="#">2</td><td data-label="類型">錢幣／寶石鑑定 · 圖鑑</td><td data-label="份數"><b>11</b></td><td data-label="佔比">21.6%</td><td data-label="代表產出">雲南造光緒元寶半圓困龍版（私人＋分享）、錢幣收藏總覽、蜜蠟琥珀對照圖鑑、粉紅原石鑑定</td></tr><tr class=""><td data-label="#">3</td><td data-label="類型">咖啡站台重建（momo-coffee）</td><td data-label="份數"><b>11</b></td><td data-label="佔比">21.6%</td><td data-label="代表產出">index.html ＋ vol1–vol10 十期分頁，32px 老花版；10/29 一次性重建，唔係逐週新增</td></tr><tr class=""><td data-label="#">4</td><td data-label="類型">Hermes 系統修復／方法論</td><td data-label="份數"><b>4</b></td><td data-label="佔比">7.8%</td><td data-label="代表產出">crash 診斷報告、邊界校驗 fail-closed 提問法、Telegram 多 session 重溫指南（各私人＋分享）</td></tr><tr class=""><td data-label="#">5</td><td data-label="類型">定存利率比較</td><td data-label="份數"><b>1</b></td><td data-label="佔比">2.0%</td><td data-label="代表產出">港元＋美元，7 日至 12 個月，新資金／現有資金</td></tr><tr class=""><td data-label="#">6</td><td data-label="類型">月度統計報告</td><td data-label="份數"><b>1</b></td><td data-label="佔比">2.0%</td><td data-label="代表產出">就係上一份：2026年09月月度報告</td></tr></tbody></table></div>
+  </section>
+
+  <section class="card">
+    <h2><span class="tag">rhythm</span>10月產出節奏（逐日）</h2>
+    <div class="rhythm"><div class="dcol"><span class="dbar z" style="height:0%" title="10月1日：0 份"></span><span class="dnum">·</span><span class="dday lab">1</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月2日：0 份"></span><span class="dnum">·</span><span class="dday">2</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月3日：0 份"></span><span class="dnum">·</span><span class="dday">3</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月4日：0 份"></span><span class="dnum">·</span><span class="dday">4</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月5日：0 份"></span><span class="dnum">·</span><span class="dday">5</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月6日：0 份"></span><span class="dnum">·</span><span class="dday">6</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月7日：0 份"></span><span class="dnum">·</span><span class="dday">7</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月8日：0 份"></span><span class="dnum">·</span><span class="dday">8</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月9日：0 份"></span><span class="dnum">·</span><span class="dday">9</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月10日：0 份"></span><span class="dnum">·</span><span class="dday lab">10</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月11日：0 份"></span><span class="dnum">·</span><span class="dday">11</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月12日：0 份"></span><span class="dnum">·</span><span class="dday">12</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月13日：0 份"></span><span class="dnum">·</span><span class="dday">13</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月14日：0 份"></span><span class="dnum">·</span><span class="dday">14</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月15日：0 份"></span><span class="dnum">·</span><span class="dday">15</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月16日：0 份"></span><span class="dnum">·</span><span class="dday">16</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月17日：0 份"></span><span class="dnum">·</span><span class="dday">17</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月18日：0 份"></span><span class="dnum">·</span><span class="dday">18</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月19日：0 份"></span><span class="dnum">·</span><span class="dday">19</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月20日：0 份"></span><span class="dnum">·</span><span class="dday lab">20</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月21日：0 份"></span><span class="dnum">·</span><span class="dday">21</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月22日：0 份"></span><span class="dnum">·</span><span class="dday">22</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月23日：0 份"></span><span class="dnum">·</span><span class="dday">23</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月24日：0 份"></span><span class="dnum">·</span><span class="dday">24</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月25日：0 份"></span><span class="dnum">·</span><span class="dday">25</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月26日：0 份"></span><span class="dnum">·</span><span class="dday">26</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月27日：0 份"></span><span class="dnum">·</span><span class="dday">27</span></div><div class="dcol"><span class="dbar z" style="height:0%" title="10月28日：0 份"></span><span class="dnum">·</span><span class="dday">28</span></div><div class="dcol"><span class="dbar hot" style="height:100%" title="10月29日：37 份"></span><span class="dnum">37</span><span class="dday lab">29</span></div><div class="dcol"><span class="dbar hot" style="height:27%" title="10月30日：10 份"></span><span class="dnum">10</span><span class="dday">30</span></div><div class="dcol"><span class="dbar " style="height:11%" title="10月31日：4 份"></span><span class="dnum">4</span><span class="dday lab">31</span></div></div>
+    <p class="note">10月1–28日：<b>0 份</b>（旅行＋Hermes 停擺）· 10月29日：37 份（466 KB）·
+    10月30日：10 份（106 KB）· 10月31日：4 份（91 KB）。</p>
+  </section>
+
+  <section class="card">
+    <h2><span class="tag">recommendations</span>建議優化方向</h2>
+    <ol class="adv">
+      <li><b>記錄機制覆蓋率只有 ~18%</b> <span class="pill">優先</span>
+        <p>10 月實際交付 51 份檔、35 個主題，但兩個 records JSON 合共只有 9 條 10 月記錄
+        （AppData 版 5 條、Documents 版 4 條）→ 覆蓋約 18% 檔案、26% 主題。
+        <br><b>做法 A（建議）</b>：每晚 script-only 掃一次新增／改動嘅 HTML，自動補寫記錄（0 token、唔經 LLM）。
+        <br><b>做法 B</b>：每個 build script 收尾加一行 append。
+        <br>兩者都係系統改動，<b>等你批准先做</b>。</p></li>
+
+      <li><b>兩個 records 檔＋兩套 schema 要收攏成一個</b> <span class="pill mid">中</span>
+        <p><code>~/.hermes/momo-html-records.json</code> 用 <code>date/type/title/html_path</code>；
+        <code>~/Documents/momo-html/momo-html-records.json</code> 用 <code>date/query/category/html_paths</code>。
+        兩邊都有人寫，結果同一個月嘅記錄散落兩處，統計要人手 merge（今次就係咁做）。
+        <br><b>建議</b>：定一個做 source of truth（我會揀 Documents 版，因為有 query＋category，資訊較全），另一個改做同步寫入。等你批准。</p></li>
+
+      <li><b>重複檔案浪費上載配額</b> <span class="pill mid">中</span>
+        <p>10月29日 一日內出咗 <b>4 份午盤</b>（13:25／13:27／13:28／13:29）＋ <b>2 份收盤</b>（20:01／20:02）；
+        10月30日 收盤亦出咗兩種格式（<code>20261030_2000-697-收盤</code> 同 <code>697-close-2026-10-30</code>）。
+        呢啲係 cron 重跑＋新舊 generator 並存造成，唔係真正需要嘅交付。
+        <br><b>建議</b>：697 只留一個 generator（single source of truth），同一時段重跑就覆寫同一個檔名。</p></li>
+
+      <li><b>「零產出」要有提醒，唔應該靠人發現</b> <span class="pill mid">中</span>
+        <p>10月1–28日 連續 28 日零 HTML，期間冇任何 alert；9 月 697 斷流 51 日亦一樣。
+        <br><b>建議</b>：script-only watchdog（0 token）——「連續 2 個交易日冇新 <code>stock-697/*.html</code> → Telegram 提醒；
+        連續 7 日全站零新 HTML → 提醒」，旅行期間可用「暫停模式」避免誤報。呢個正正係你講過嘅「被動知會」。</p></li>
+
+      <li><b>分類 mapping 應該寫入 script，唔好每月手動調</b> <span class="pill low">低</span>
+        <p>今個月仍然係人手 mapping（同比 9 月，「分析」「其他」都因為新題材而要調整）。
+        建議固化成 <code>~/.hermes/scripts/momo-html-monthly-analysis.py</code>，每月 cron 直接跑，數字穩定、可追溯、跨月可比。</p></li>
+
+      <li><b>月度報告自己唔計入統計 — 建議保持</b> <span class="pill low">低</span>
+        <p>今次自己（2026-10-月度報告.html）唔計入 51 份之內，避免「統計自己」呢個循環。
+        9 月報告有計入（作為 1 份「統計」產出），建議下月起統一：<b>當月報告唔計自己，上月報告計入</b>。</p></li>
+    </ol>
+  </section>
+
+  <section class="card">
+    <h2><span class="tag">method</span>方法與口徑（可審核）</h2>
+    <p class="note">
+    <b>掃描範圍</b>：<code>~/Documents/momo-html/</code>（全部子目錄，跳過 backups／_scratch／__pycache__）＋
+    <code>~/.hermes/html-reports/</code>。當月報告自己唔計入。<br>
+    <b>剔除內部檔</b>：template／片段／暫存／測試副本（<code>tpl-*</code>、<code>*_body*</code>、<code>*_section*</code>、
+    <code>verify_*</code>、<code>^_*</code>、<code>tmp_*</code>、<code>test_*</code> 等）。全站掃到 683 個交付 HTML（7–10 月）。<br>
+    <b>月份判定</b>：檔名有 <code>YYYYMMDD</code>／<code>YYYY-MM-DD</code> 就用檔名日期；冇就用檔案修改時間（10 月：檔名 39 份、mtime 12 份）。<br>
+    <b>分類</b>：7 個標準分類，檔名關鍵字優先（數據 → 統計 → 比較 → 教學 → 計劃 → 分析），
+    冇命中才用資料夾判斷（stock-697→數據、coins→分析、momo-coffee→其他、hermes-guides→教學）。<br>
+    <b>資料來源</b>：① 檔案系統實掃（真相來源，683 個 HTML）② 兩個 <code>momo-html-records.json</code>（輔助，覆蓋率 ~18%）
+    ③ <code>cron/executions.db</code>（核對 cron 有冇跑：10月1–29日 完全冇執行記錄，10月30日 補跑 753 次）。<br>
+    <b>跨月比較口徑</b>：07／08／09 月用之前報告已公佈嘅數字（同一掃描血統）。今日用同一支腳本重掃 9 月得出 112 份
+    （vs 公佈 107 份，差 5 份源自分類 mapping 微調同後期改寫），方向同結論不變。<br>
+    <b>已知限制</b>：① records 覆蓋率低，唔可以單靠佢 ② mtime 口徑會令被改寫嘅舊檔「移月」
+    ③ 關鍵字分類對跨界題材（例如博物館閉館日）可能落入相鄰分類。
+    </p>
+  </section>
+
+  <footer>
+    報告由 無虛（mo mo）全自動生成 · cron 月度任務 · 生成日期 2026年11月1日<br>
+    數據來源：momo-html/ ＋ html-reports/ 實掃 683 個 HTML、momo-html-records.json（兩份）、cron/executions.db<br>
+    統計口徑：以實際 HTML 交付檔為準，7 分類標準（2026-10 更新版）· 下一份月度報告：2026年12月1日 自動生成
+  </footer>
+</div>
+</body>
+</html>
