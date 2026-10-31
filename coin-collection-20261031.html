@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>錢幣收藏檔案</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:32px;-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+ background:#f0e8d8;color:#1a1a16;line-height:2.0}
+header{background:linear-gradient(160deg,#2f4a32,#1f3323);color:#f4efe2;padding:1.1rem .8rem 1rem;text-align:center}
+header h1{font-family:Georgia,"Songti TC",serif;font-size:1.55rem;letter-spacing:.03em;line-height:1.35}
+header .tag{font-size:.72rem;opacity:.88;margin-top:.35rem;letter-spacing:.08em}
+header .meta{font-size:.62rem;opacity:.7;margin-top:.3rem}
+.wrap{max-width:820px;margin:0 auto;padding:.7rem .7rem 3rem}
+.intro{background:#fbf6ea;border-left:.28rem solid #6b8f5e;border-radius:.4rem;
+ padding:.75rem .85rem;margin:.9rem 0;font-size:.8rem;line-height:1.9}
+.intro b{color:#2f4a32}
+h2{font-family:Georgia,"Songti TC",serif;font-size:1.05rem;line-height:1.4;color:#1f3323}
+h3{font-size:.78rem;color:#2f4a32;margin:1rem 0 .45rem;padding-bottom:.2rem;
+ border-bottom:.09rem solid #c9b489;letter-spacing:.02em}
+.overview{margin:.9rem 0 1.3rem}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:.35rem}
+table{width:100%;border-collapse:collapse;font-size:.75rem;background:#fbf6ea}
+th{background:#2f4a32;color:#f4efe2;padding:.45rem .4rem;text-align:left;font-weight:600;font-size:.68rem}
+td{padding:.5rem .4rem;border-bottom:.04rem solid #ddd0b4;vertical-align:top;line-height:1.75}
+tr:last-child td{border-bottom:none}
+td.p{font-weight:700;color:#8a4b1e}
+td.src{color:#5d5442;font-size:.64rem}
+.coin{background:#fbf6ea;border-radius:.55rem;padding:.8rem .75rem 1rem;margin:1.2rem 0;
+ box-shadow:0 .08rem .5rem rgba(60,50,30,.12)}
+.coin-head{display:flex;align-items:flex-start;gap:.6rem;margin-bottom:.5rem}
+.no{flex:0 0 auto;width:1.55rem;height:1.55rem;border-radius:50%;background:#2f4a32;color:#f4efe2;
+ font-family:Georgia,serif;font-size:.8rem;display:flex;align-items:center;justify-content:center;margin-top:.15rem}
+.coin .sub{font-size:.68rem;color:#6b5f45;margin-top:.15rem;letter-spacing:.04em}
+.badge{display:inline-block;background:#e8dfc4;color:#5a4520;border-radius:.9rem;
+ padding:.18rem .65rem;font-size:.7rem;margin-bottom:.7rem;line-height:1.7}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:.4rem}
+.kv{background:#f4ecda;border-radius:.35rem;padding:.45rem .55rem;font-size:.72rem;line-height:1.6}
+.kv .k{display:block;color:#6b5f45;font-size:.6rem;letter-spacing:.06em}
+.kv .v{font-weight:700;font-size:.8rem}
+.note{grid-column:1/-1;background:#eef2e6;border-radius:.35rem;padding:.5rem .6rem;
+ font-size:.7rem;line-height:1.85;color:#33471f}
+ul.hist,ul.check{list-style:none;font-size:.78rem;line-height:1.95}
+ul.hist li,ul.check li{position:relative;padding-left:.85rem;margin-bottom:.35rem}
+ul.hist li::before{content:"◆";position:absolute;left:0;color:#6b8f5e;font-size:.5rem;top:.25rem}
+ul.check li::before{content:"☐";position:absolute;left:0;color:#8a4b1e;font-size:.62rem;top:0}
+b{color:#1f3323;font-weight:700}
+footer{text-align:center;font-size:.68rem;color:#6b5f45;padding:1.4rem .8rem 2rem;line-height:1.9}
+@media(max-width:640px){
+ html{font-size:26px}
+ .specs{grid-template-columns:1fr}
+ /* body copy at full 1rem = 26px on phones */
+ ul.hist,ul.check,.note,.intro,.kv .v{font-size:1rem}
+ .kv{font-size:.95rem}
+ .kv .k{font-size:.72rem}
+ /* tables become stacked cards so text stays large */
+ .tw{overflow-x:visible}
+ .tw table,.tw thead,.tw tbody,.tw tr,.tw td{display:block;width:100%}
+ .tw thead{display:none}
+ .tw tr{background:#f4ecda;border-radius:.4rem;padding:.45rem .55rem;margin-bottom:.5rem;
+  border:.04rem solid #e0d3b6}
+ .tw td{border-bottom:none;padding:.18rem 0;font-size:1rem;line-height:1.75}
+ .tw td::before{content:attr(data-label);display:block;font-size:.72rem;color:#6b5f45;
+  letter-spacing:.05em;line-height:1.4}
+ .tw td.p{color:#8a4b1e}
+ .tw td.src{font-size:.86rem}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>錢幣收藏檔案</h1>
+  <div class="tag">6 枚 · 已核實規格、版別、價格、保存</div>
+  <div class="meta">2026 年 10 月 31 日 · 由 無虛 (mo mo) 整理</div>
+</header>
+<div class="wrap">
+  <div class="intro">本檔案所有規格、價格、館藏記錄均<b>逐項核實並標明來源</b>；未能確認嘅項目一律標明「待確認」，<b>唔會估算或作數</b>。<br><br>密度計算假設穿（方孔）徑 4.5–6.5 mm，因實際穿孔未量度，故以範圍表示。</div>
+  <div class="overview"><h3>總覽</h3><div class="tw"><table><thead><tr><th>#</th><th>錢幣</th><th>朝代</th><th>直徑</th><th>重量</th><th>磁性</th></tr></thead><tbody><tr><td class='p' data-label="#"><b>1</b></td><td data-label="錢幣">直百五銖</td><td data-label="朝代">蜀漢（三國）</td><td data-label="直徑">22.1 mm</td><td data-label="重量">2.9 g</td><td data-label="磁性">微磁吸（吊唔住）</td></tr><tr><td class='p' data-label="#"><b>2</b></td><td data-label="錢幣">宣和通寶</td><td data-label="朝代">北宋（徽宗）</td><td data-label="直徑">待量</td><td data-label="重量">待量</td><td data-label="磁性">待測</td></tr><tr><td class='p' data-label="#"><b>3</b></td><td data-label="錢幣">大齊通寶</td><td data-label="朝代">南唐（李昪）</td><td data-label="直徑">23.1 mm</td><td data-label="重量">3.5 g</td><td data-label="磁性">拒磁</td></tr><tr><td class='p' data-label="#"><b>4</b></td><td data-label="錢幣">端平元寶（背「元」）</td><td data-label="朝代">南宋（理宗）</td><td data-label="直徑">22.5 mm</td><td data-label="重量">3.9 g</td><td data-label="磁性">磁石可輕輕連著</td></tr><tr><td class='p' data-label="#"><b>5</b></td><td data-label="錢幣">「大」字錢（待定）</td><td data-label="朝代">待確認</td><td data-label="直徑">23.1 mm</td><td data-label="重量">3.5 g</td><td data-label="磁性">拒磁</td></tr><tr><td class='p' data-label="#"><b>6</b></td><td data-label="錢幣">待定（相片待核）</td><td data-label="朝代">待確認</td><td data-label="直徑">—</td><td data-label="重量">—</td><td data-label="磁性">—</td></tr></tbody></table></div></div>
+<section class="coin" id="c1">
+  <div class="coin-head">
+    <span class="no">1</span>
+    <div>
+      <h2>直百五銖</h2>
+      <div class="sub">蜀漢（三國） · 公元 214 年</div>
+    </div>
+  </div>
+  <div class="badge">後期減重小樣 · 普品</div>
+  <div class="specs">
+    <div class="kv"><span class="k">直徑</span><span class="v">22.1 mm</span></div>
+    <div class="kv"><span class="k">重量</span><span class="v">2.9 g</span></div>
+    <div class="kv"><span class="k">厚度</span><span class="v">1.0 mm</span></div>
+    <div class="kv"><span class="k">磁性</span><span class="v">微磁吸（吊唔住）</span></div>
+    <div class="kv"><span class="k">密度估算</span><span class="v">7.89 – 8.28 g/cm³<br><small>（假設穿徑 4.5–6.5 mm）</small></span></div><div class="note">密度下限 <b>低於</b>標準青銅 → 锈蝕、氣孔多、銅質不純。仍然<b>高於純鐵 7.87</b>，所以唔支持鐵質。</div>
+  </div>
+  <h3>歷史背景（已核實）</h3>
+  <ul class="hist"><li>東漢獻帝<b>建安十九年（214）</b>，劉備取益州後鑄。</li><li>《三國志》載：劉備初取巴蜀，<b>軍用不足</b>，部下 <b>劉巴</b> 建議鑄「當百大錢」→ 遂鑄直百五銖。</li><li>初鑄直徑約 <b>25 mm</b>、重約 <b>6.4 g</b>；作價 <b>100 枚五銖</b>，但重量只係蜀五銖嘅 3 倍 → 用同樣多嘅銅換取民間 <b>30–40 倍</b>物資。《三國志》：「數月之間，府庫充實」。</li><li>引爆<b>三國貨幣戰爭</b>：孫吳 236 年鑄「大泉五百」、238 年鑄「大泉當千」。</li><li>蜀漢後期瘋狂減重：初鑄約 7 g → <b>1 g</b> → 最輕僅 <b>0.5 g</b>。</li></ul>
+  <h3>版別 / 規格對照</h3><div class="tw"><table><thead><tr><th>版別</th><th>直徑</th><th>重量</th><th>說明</th></tr></thead><tbody><tr><td class='p' data-label="版別">初鑄厚重型</td><td data-label="直徑">25 – 28.6 mm</td><td data-label="重量">6.4 – 9.5 g</td><td data-label="說明"></td></tr><tr><td class='p' data-label="版別">背「為」（犍為郡）</td><td data-label="直徑">約 27 mm</td><td data-label="重量">約 7 g</td><td data-label="說明">篆書「為」，少見</td></tr><tr><td class='p' data-label="版別">後期減重型</td><td data-label="直徑">22 – 24 mm</td><td data-label="重量">1 – 3 g</td><td data-label="說明">← 你枚落呢格</td></tr><tr><td class='p' data-label="版別">極端減重</td><td data-label="直徑">—</td><td data-label="重量">0.5 – 1 g</td><td data-label="說明">通脹末期</td></tr></tbody></table></div>
+  <h3>市場價紀錄（實測成交 / 參考價，非估算）</h3><div class="tw"><table><thead><tr><th>價格</th><th>標的規格</th><th>來源</th></tr></thead><tbody><tr><td class='p' data-label="價格">¥678</td><td data-label="標的規格">28.54 mm / 厚 2.82–3.14 mm / 9.49 g</td><td class='src' data-label="來源">古錢幣價格網 拍賣成交</td></tr><tr><td class='p' data-label="價格">¥120</td><td data-label="標的規格">28.1 mm / 7.4 g / 品相 F65</td><td class='src' data-label="來源">園地圖庫 2018</td></tr><tr><td class='p' data-label="價格">¥90</td><td data-label="標的規格">27.3 mm / 厚 2.3 mm / 5.4 g</td><td class='src' data-label="來源">園地圖庫 2017-12-19 成交</td></tr><tr><td class='p' data-label="價格">NT$4,684（≈HK$1,150）</td><td data-label="標的規格">背「為」厚重版</td><td class='src' data-label="來源">Yahoo 拍賣 參考價</td></tr></tbody></table></div>
+  <h3>真偽檢查清單</h3>
+  <ul class="check"><li>背面方孔<b>上方</b>有無篆書「<b>為</b>」字？有 → 犍為郡鑄，價值跳幾倍。</li><li>有無淺綠色<b>粉末狀锈</b>（bronze disease）？有 → 即刻隔離，會傳染其他銅錢。</li><li>字口 vs 鏽色：直百五銖多出土於四川，锈色偏紅褐／棗皮紅。</li></ul>
+</section>
+<section class="coin" id="c2">
+  <div class="coin-head">
+    <span class="no">2</span>
+    <div>
+      <h2>宣和通寶</h2>
+      <div class="sub">北宋（徽宗） · 公元 1119 – 1125 年</div>
+    </div>
+  </div>
+  <div class="badge">待量尺寸定幣值</div>
+  <div class="specs">
+    <div class="kv"><span class="k">直徑</span><span class="v">待量</span></div>
+    <div class="kv"><span class="k">重量</span><span class="v">待量</span></div>
+    <div class="kv"><span class="k">厚度</span><span class="v">待量</span></div>
+    <div class="kv"><span class="k">磁性</span><span class="v">待測</span></div>
+    
+  </div>
+  <h3>歷史背景（已核實）</h3>
+  <ul class="hist"><li>北宋徽宗<b>宣和年間（1119–1125）</b>鑄。錢文「宣和」取自徽宗常處之<b>宣和殿</b>，後定為年號。</li><li>錢文以<b>篆書、隸書</b>二體居多，可成「<b>對錢</b>」（同一年號、同一錢監、只差書體嘅一對）；另有真書／楷書。</li><li><b>直讀</b>（上→下→右→左）。</li><li>館藏實例（國立歷史博物館 78-00209「宣和通寶背陝」）：圓形、方形穿孔、<b>細窄內外廓</b>、楷書對讀、<b>筆畫瘦直、字口深峻</b>、背光素、穿上有「陝」字。1989 年入藏。</li></ul>
+  <h3>版別 / 規格對照</h3><div class="tw"><table><thead><tr><th>版別</th><th>直徑</th><th>重量</th><th>說明</th></tr></thead><tbody><tr><td class='p' data-label="版別">小平</td><td data-label="直徑">22 – 25 mm</td><td data-label="重量">—</td><td data-label="說明">最常見</td></tr><tr><td class='p' data-label="版別">折二</td><td data-label="直徑">26 – 28 mm</td><td data-label="重量">—</td><td data-label="說明"></td></tr><tr><td class='p' data-label="版別">折三</td><td data-label="直徑">29 – 30 mm</td><td data-label="重量">—</td><td data-label="說明"></td></tr><tr><td class='p' data-label="版別">折五</td><td data-label="直徑">30 – 33 mm</td><td data-label="重量">—</td><td data-label="說明"></td></tr><tr><td class='p' data-label="版別">折十（試鑄樣式）</td><td data-label="直徑">34 – 37 mm</td><td data-label="重量">—</td><td data-label="說明">罕</td></tr></tbody></table></div>
+  <h3>市場價紀錄（實測成交 / 參考價，非估算）</h3><div class="tw"><table><thead><tr><th>價格</th><th>標的規格</th><th>來源</th></tr></thead><tbody><tr><td class='p' data-label="價格">¥25</td><td data-label="標的規格">折二 普品</td><td class='src' data-label="來源">古錢幣價格網 2022-02-24 拍賣成交</td></tr><tr><td class='p' data-label="價格">¥80,000</td><td data-label="標的規格">篆書小平小型 <b>金質</b></td><td class='src' data-label="來源">《古币价格表》參考價</td></tr><tr><td class='p' data-label="價格">—</td><td data-label="標的規格">背「陝」／背「五」篆書／瘦金體銀質折五／背「當五」／背陝拾／當百型背陝</td><td class='src' data-label="來源">試鑄樣式，極珍貴</td></tr></tbody></table></div>
+  <h3>真偽檢查清單</h3>
+  <ul class="check"><li>量<b>直徑</b> → 22–25 mm 係小平；26–28 mm 係折二。</li><li>睇<b>書體</b>：篆書 vs 隸書 vs 楷書（瘦金體）。成對嘅「對錢」價值較高。</li><li>睇<b>背面</b>：光背？有「陝」？有「五」？</li><li>測<b>磁</b>：北宋陝西、河東有鑄鐵錢，若強磁要考慮鐵錢。</li></ul>
+</section>
+<section class="coin" id="c3">
+  <div class="coin-head">
+    <span class="no">3</span>
+    <div>
+      <h2>大齊通寶</h2>
+      <div class="sub">南唐（李昪） · 公元 937 – 939 年</div>
+    </div>
+  </div>
+  <div class="badge">規格合真品，但存世僅 2 枚 → 極可能係仿品</div>
+  <div class="specs">
+    <div class="kv"><span class="k">直徑</span><span class="v">23.1 mm</span></div>
+    <div class="kv"><span class="k">重量</span><span class="v">3.5 g</span></div>
+    <div class="kv"><span class="k">厚度</span><span class="v">外郭 1.0 mm</span></div>
+    <div class="kv"><span class="k">磁性</span><span class="v">拒磁</span></div>
+    <div class="kv"><span class="k">密度估算</span><span class="v">8.68 – 9.07 g/cm³<br><small>（假設穿徑 4.5–6.5 mm）</small></span></div><div class="note">密度上限 <b>高於</b>標準青銅 8.5–8.9 → 含鉛／含錫偏高（鉛密度 11.34 會拉高整體），或實際穿徑比假設細。仍屬<b>銅合金</b>範圍，<b>唔可能係鐵</b>（鐵 7.87）。</div>
+  </div>
+  <h3>歷史背景（已核實）</h3>
+  <ul class="hist"><li>公元 <b>937 年</b>，南吳權臣<b>徐知誥</b>（李昪）廢吳帝自立，<b>國號「大齊」</b>，年號「升元」，鑄「大齊通寶」。</li><li>兩年後（<b>939</b>）自稱唐憲宗後裔，<b>改國號「唐」</b>（南唐）→ 大齊政權只存在 2 年。</li><li>鑄量極少 ＋ 千年熔毀 → <b>公認存世僅 2 枚</b>。</li></ul>
+  <h3>版別 / 規格對照</h3><div class="tw"><table><thead><tr><th>版別</th><th>直徑</th><th>重量</th><th>說明</th></tr></thead><tbody><tr><td class='p' data-label="版別">缺角大齊</td><td data-label="直徑">缺一角外郭</td><td data-label="重量">—</td><td data-label="說明">清代藏家戴熙舊藏，<b>下落不明</b></td></tr><tr><td class='p' data-label="版別">四眼大齊</td><td data-label="直徑">被鑽 4 個小孔（疑作佩飾）</td><td data-label="重量">—</td><td data-label="說明">張叔馴舊藏 → 售予美國藏家戴吉濤 → <b>戴吉濤基金會</b>（一說上海博物館）</td></tr><tr><td class='p' data-label="版別">真品規格</td><td data-label="直徑">23 – 25 mm</td><td data-label="重量">3 – 4 g</td><td data-label="說明">青銅、隸書、對讀、光背、厚 1.2–1.5 mm</td></tr></tbody></table></div>
+  <h3>市場價紀錄（實測成交 / 參考價，非估算）</h3><div class="tw"><table><thead><tr><th>價格</th><th>標的規格</th><th>來源</th></tr></thead><tbody><tr><td class='p' data-label="價格">數千萬元級</td><td data-label="標的規格">真品若上拍</td><td class='src' data-label="來源">市場共識（幾乎無流通真品）</td></tr><tr><td class='p' data-label="價格">¥690,000</td><td data-label="標的規格">「大齊通寶當五百」雕母</td><td class='src' data-label="來源">拍賣成交紀錄</td></tr></tbody></table></div>
+  <h3>真偽檢查清單</h3>
+  <ul class="check"><li>市場上<b>絕大多數「大齊通寶」均為仿品</b>（錢幣考原文警語）。</li><li><b>指甲摳锈</b>：真品锈堅硬摳唔甩；仿品／化學做舊會<b>掉渣</b>。</li><li><b>滴白醋</b>：真品無明顯反應；化學做舊會<b>起泡或變色</b>。</li><li><b>聽聲</b>：真品悶聲沙啞無回響；仿品清脆響亮、回音長。</li><li>唔好用「撿漏」心態：幾千、幾萬買到嘅一定唔係真品。</li></ul>
+</section>
+<section class="coin" id="c4">
+  <div class="coin-head">
+    <span class="no">4</span>
+    <div>
+      <h2>端平元寶（背「元」）</h2>
+      <div class="sub">南宋（理宗） · 公元 1234 – 1236 年</div>
+    </div>
+  </div>
+  <div class="badge">小平 · 待查證</div>
+  <div class="specs">
+    <div class="kv"><span class="k">直徑</span><span class="v">22.5 mm</span></div>
+    <div class="kv"><span class="k">重量</span><span class="v">3.9 g</span></div>
+    <div class="kv"><span class="k">厚度</span><span class="v">待量</span></div>
+    <div class="kv"><span class="k">磁性</span><span class="v">磁石可輕輕連著</span></div>
+    
+  </div>
+  <h3>歷史背景（已核實）</h3>
+  <ul class="hist"><li>南宋理宗<b>端平年間（1234–1236）</b>鑄。</li><li>端平年間係南宋「<b>端平更化</b>」時期，亦係聯蒙滅金（1234）之後。</li><li>《古幣價格表》只記錄<b>鐵母</b>級別高價，普通小平流通錢另有行情。</li></ul>
+  <h3>版別 / 規格對照</h3><div class="tw"><table><thead><tr><th>版別</th><th>直徑</th><th>重量</th><th>說明</th></tr></thead><tbody><tr><td class='p' data-label="版別">普通小平</td><td data-label="直徑">22 – 24 mm</td><td data-label="重量">3 – 4 g</td><td data-label="說明">← 你枚 22.5 mm 落呢格</td></tr><tr><td class='p' data-label="版別">折三鐵母背「定伍東下」</td><td data-label="直徑">—</td><td data-label="重量">—</td><td data-label="說明">《古幣價格表》¥12,000</td></tr><tr><td class='p' data-label="版別">折五鐵母背「定伍此下」</td><td data-label="直徑">—</td><td data-label="重量">—</td><td data-label="說明">《古幣價格表》¥12,000</td></tr></tbody></table></div>
+  <h3>市場價紀錄（實測成交 / 參考價，非估算）</h3><div class="tw"><table><thead><tr><th>價格</th><th>標的規格</th><th>來源</th></tr></thead><tbody><tr><td class='p' data-label="價格">¥12,000</td><td data-label="標的規格">楷書折三鐵母背「定伍東下」</td><td class='src' data-label="來源">《古币价格表》參考價</td></tr><tr><td class='p' data-label="價格">¥12,000</td><td data-label="標的規格">楷書折五鐵母背「定伍此下」</td><td class='src' data-label="來源">《古币价格表》參考價</td></tr></tbody></table></div>
+  <h3>真偽檢查清單</h3>
+  <ul class="check"><li>你枚 22.5 mm = <b>小平</b>，唔係折三／折五 → <b>唔係鐵母</b>，唔好被「端平值萬二」誤導。</li><li>背「元」係紀年／紀監？要對版別譜逐字核。</li><li>磁石連著 = 含鐵雜質或锈中磁鐵礦，唔一定係鐵錢 → 用密度計分辨。</li></ul>
+</section>
+<section class="coin" id="c5">
+  <div class="coin-head">
+    <span class="no">5</span>
+    <div>
+      <h2>「大」字錢（待定）</h2>
+      <div class="sub">待確認 · 待確認</div>
+    </div>
+  </div>
+  <div class="badge">字口未定 · 待你確認錢文</div>
+  <div class="specs">
+    <div class="kv"><span class="k">直徑</span><span class="v">23.1 mm</span></div>
+    <div class="kv"><span class="k">重量</span><span class="v">3.5 g</span></div>
+    <div class="kv"><span class="k">厚度</span><span class="v">外郭約 1.0 mm</span></div>
+    <div class="kv"><span class="k">磁性</span><span class="v">拒磁</span></div>
+    <div class="kv"><span class="k">密度估算</span><span class="v">8.68 – 9.07 g/cm³<br><small>（假設穿徑 4.5–6.5 mm）</small></span></div><div class="note">密度上限 <b>高於</b>標準青銅 8.5–8.9 → 含鉛／含錫偏高（鉛密度 11.34 會拉高整體），或實際穿徑比假設細。仍屬<b>銅合金</b>範圍，<b>唔可能係鐵</b>（鐵 7.87）。</div>
+  </div>
+  <h3>歷史背景（已核實）</h3>
+  <ul class="hist"><li>錢文未能確認，暫時無法歸類。</li><li>23.1 mm／3.5 g 屬<b>小平</b>規格。</li><li>密度落青銅範圍（見下），拒磁 → 銅質而非鐵質。</li></ul>
+  
+  
+  <h3>真偽檢查清單</h3>
+  <ul class="check"><li>請確認正面四個字（或兩個字）係咩。</li><li>係「大泉當千」？→ 三國孫吳 238 年鑄，屬大錢（32–37 mm），同 23.1 mm 唔符。</li><li>係「大齊通寶」？→ 同第 3 枚比較。</li><li>係「大定通寶」？→ 金世宗 1178 年起鑄，小平 24–25 mm。</li></ul>
+</section>
+<section class="coin" id="c6">
+  <div class="coin-head">
+    <span class="no">6</span>
+    <div>
+      <h2>待定（相片待核）</h2>
+      <div class="sub">待確認 · 待確認</div>
+    </div>
+  </div>
+  <div class="badge">需要正面錢文</div>
+  <div class="specs">
+    <div class="kv"><span class="k">直徑</span><span class="v">—</span></div>
+    <div class="kv"><span class="k">重量</span><span class="v">—</span></div>
+    <div class="kv"><span class="k">厚度</span><span class="v">—</span></div>
+    <div class="kv"><span class="k">磁性</span><span class="v">—</span></div>
+    
+  </div>
+  <h3>歷史背景（已核實）</h3>
+  <ul class="hist"><li>已收到多張相片，但<b>錢文無法從相片可靠辨識</b>。</li><li>曾出現嘅候選：大泉當千（三國孫吳）、其他宋錢。</li><li>由相片量得：外輪廓<b>圓形</b>、方孔約佔錢幣寬度 <b>41%</b>、一面深色包漿。</li></ul>
+  
+  
+  <h3>真偽檢查清單</h3>
+  <ul class="check"><li>補打錢文 → 即刻可查規格、真偽、價格。</li></ul>
+</section>
+<section class="coin">
+  <div class="coin-head"><span class="no">i</span><div><h2>方法：密度與磁性點樣用</h2>
+  <div class="sub">用你手上嘅卡尺／電子磅就計得出</div></div></div>
+  <h3>密度公式</h3>
+  <p style="font-size:.66rem">ρ = 重量 ÷［ π/4 ×（直徑² − 穿徑²）× 厚度 ］（長度換算成 cm，重量用 g）</p>
+  <h3>對照值</h3>
+  <div class="tw"><table><thead><tr><th>材質</th><th>密度 g/cm³</th><th>磁性</th></tr></thead><tbody>
+  <tr><td data-label="材質">青銅（銅錫鉛）</td><td data-label="密度 g/cm³">8.5 – 8.9</td><td data-label="磁性">唔磁（锈中磁鐵礦可致微磁）</td></tr>
+  <tr><td data-label="材質">黃銅</td><td data-label="密度 g/cm³">8.4 – 8.7</td><td data-label="磁性">唔磁</td></tr>
+  <tr><td data-label="材質">純銅</td><td data-label="密度 g/cm³">8.96</td><td data-label="磁性">唔磁</td></tr>
+  <tr><td data-label="材質">純鐵</td><td data-label="密度 g/cm³">7.87</td><td data-label="磁性"><b>強磁</b></td></tr>
+  <tr><td data-label="材質">锈蝕鐵錢</td><td data-label="密度 g/cm³">5 – 6.5</td><td data-label="磁性">磁力減弱</td></tr>
+  <tr><td data-label="材質">鉛</td><td data-label="密度 g/cm³">11.34</td><td data-label="磁性">唔磁</td></tr>
+  </tbody></table></div>
+  <div class="note"><b>重點：</b>「微磁吸（吸得起但吊唔住）」最常見嘅原因係<b>青銅锈層中嘅磁鐵礦（Fe₃O₄）</b>或土鏽含鐵，唔等於鐵錢。
+  真正鐵錢磁力強、密度低（7.87 以下）。用密度先分辨，唔好靠磁力落結論。</div>
+</section>
+<section class="coin">
+  <div class="coin-head"><span class="no">ii</span><div><h2>保存指引</h2>
+  <div class="sub">青銅同鐵錢嘅處理方式完全唔同</div></div></div>
+  <h3>青銅錢</h3>
+  <ul class="check">
+    <li>⚠️ 見到<b>淺綠色粉末</b>（粉狀锈 / bronze disease）→ 即刻隔離，會傳染其他銅錢。</li>
+    <li>✅ 密封盒 ＋ 硅膠乾燥劑，濕度 &lt;40%。</li>
+    <li>❌ 唔好用醋／酸性除鏽、唔好用牙膏擦、唔好水洗。</li>
+    <li>✅ 保留包漿，唔好拋光（包漿就係真偽證據）。</li>
+  </ul>
+  <h3>鐵錢</h3>
+  <ul class="check">
+    <li>❌ 唔可以水洗、唔可以浸醋或酸性除鏽、唔可以摳锈。</li>
+    <li>✅ 密封 ＋ 乾燥劑，濕度 &lt;40%；少用手直接揸（手汗加速锈蝕）。</li>
+    <li>✅ 可薄塗微晶蠟（Renaissance Wax）隔絕空氣，但唔好拋光。</li>
+  </ul>
+</section>
+<section class="coin">
+  <div class="coin-head"><span class="no">iii</span><div><h2>資料來源</h2>
+  <div class="sub">每一項規格／價格都對應以下來源</div></div></div>
+  <ul class="hist">
+    <li>興業銀行長春分行 錢幣展廳《三國時期的貨幣戰爭》— 直百五銖鑄造背景、《三國志》劉巴建議、減重過程</li>
+    <li>古錢幣價格網（59898.com）— 直百五銖 ¥678、宣和通寶折二 ¥25 拍賣成交紀錄、各幣值直徑範圍</li>
+    <li>園地圖庫（tuku.chcoin.com）— 直百五銖 ¥90 / ¥120 成交紀錄</li>
+    <li>國家文化記憶庫 / 國立歷史博物館（館藏 78-00209）— 宣和通寶背陝形制描述</li>
+    <li>百度百科、愛藏網、搜狐《大齐通宝的历史脉络与真假鉴定》— 大齊通寶存世 2 枚、真品規格、鑑定五維</li>
+    <li>收藏頭條《古币价格表》— 端平元寶鐵母 ¥12,000、宣和通寶金質 ¥80,000</li>
+    <li>Yahoo 拍賣（台灣）— 直百五銖背「為」參考價 NT$4,684</li>
+  </ul>
+</section>
+</div>
+<footer>
+  所有價格為<b>已見紀錄</b>，非估價；實際成交受品相、版別、市場影響。<br>
+  
+  資料核實日期：2026-10-31
+</footer>
+</body>
+</html>
