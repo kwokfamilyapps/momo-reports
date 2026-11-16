@@ -51,6 +51,19 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:.05rem solid #cbb98f;font-si
 .chk li{list-style:none;margin-left:-1.1rem}
 .chk li::before{content:"\2610  ";color:#2f5d3a}
 .pill{display:inline-block;background:#2f5d3a;color:#f0e8d8;font-size:.78rem;padding:.1rem .5rem;border-radius:.6rem;margin-right:.3rem}
+@media print{
+ html{font-size:24px}
+ body{background:#f0e8d8;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .wrap{max-width:none;padding:0}
+ header.top{background:#1a1a16 !important;color:#f0e8d8 !important}
+ h2,h3,h4{break-after:avoid;page-break-after:avoid}
+ .box,.lead,.note,.kv,.gr,figure,tr{break-inside:avoid;page-break-inside:avoid}
+ .tw{overflow:visible}
+ thead{display:table-header-group}
+ figure img{max-height:22cm}
+ footer{break-before:avoid}
+ ol.srcs li{font-size:.8rem;line-height:1.6}
+}
 @media(max-width:820px){.gr{grid-template-columns:1fr}}
 @media(max-width:640px){
  html{font-size:26px}
