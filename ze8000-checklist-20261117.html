@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>final ZE8000 · 排障檢查表</title>
+<style>
+ html{font-size:36px}
+ :root{
+  --bg:#f0e8d8; --ink:#1a1a16; --ink2:#3f3a30; --green:#2f5d3a; --green2:#4a7c59;
+  --card:#fbf7ee; --line:#d8cdb6; --warn:#8a3b12; --ok:#2f5d3a; --gold:#b8892b;
+ }
+ *{box-sizing:border-box}
+ body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang HK","Microsoft JhengHei",sans-serif;
+  line-height:2.0;-webkit-text-size-adjust:100%}
+ .wrap{max-width:960px;margin:0 auto;padding:.7rem .6rem 3rem}
+ header.top{background:var(--ink);color:var(--bg);border-radius:.5rem;padding:1rem .9rem;margin-bottom:.9rem}
+ header.top h1{font-family:Georgia,"Times New Roman",serif;font-size:1.15rem;margin:0 0 .3rem;line-height:1.4;letter-spacing:.02em}
+ header.top p{margin:0;font-size:.62rem;color:#d8cdb6;line-height:1.8}
+ .sticky{position:sticky;top:0;z-index:9;background:linear-gradient(180deg,var(--bg) 82%,rgba(240,232,216,.75));
+   padding:.5rem 0 .4rem;margin:0 0 .3rem}
+ .bar{height:.42rem;background:#e0d6c2;border-radius:1rem;overflow:hidden;border:1px solid var(--line)}
+ .bar > i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--green2),var(--green));transition:width .25s}
+ .progrow{display:flex;align-items:center;gap:.5rem;margin-bottom:.35rem}
+ .progrow strong{font-size:.72rem;color:var(--green);white-space:nowrap}
+ button.reset{font:inherit;font-size:.5rem;line-height:1.6;background:none;border:1px solid var(--line);color:var(--ink2);
+   border-radius:2rem;padding:.14rem .6rem;margin-left:auto;cursor:pointer}
+ button.reset:active{background:#e8dfcc}
+ section{background:var(--card);border:1px solid var(--line);border-radius:.5rem;padding:.75rem .7rem;margin:0 0 .8rem}
+ h2{font-family:Georgia,serif;font-size:.82rem;margin:0 0 .45rem;line-height:1.5;color:var(--green)}
+ h2 .n{display:inline-block;background:var(--green);color:#fbf7ee;border-radius:.3rem;
+   padding:0 .4rem;margin-right:.35rem;font-family:-apple-system,sans-serif;font-size:.62rem;vertical-align:.08em}
+ .why{font-size:.55rem;color:var(--ink2);background:#efe6d3;border-left:.18rem solid var(--gold);
+   border-radius:.25rem;padding:.4rem .55rem;margin:0 0 .55rem;line-height:1.75}
+ label.ck{display:flex;align-items:flex-start;gap:.5rem;padding:.42rem .35rem;border-radius:.35rem;cursor:pointer}
+ label.ck + label.ck{border-top:1px dashed #e2d8c4}
+ label.ck:active{background:#f2ead8}
+ label.ck input{position:absolute;opacity:0;width:0;height:0}
+ label.ck .box{flex:0 0 auto;width:.85rem;height:.85rem;border:.06rem solid #a89b80;border-radius:.2rem;
+   background:#fff;margin-top:.24rem;display:flex;align-items:center;justify-content:center;
+   font-size:.6rem;color:#fff;line-height:1}
+ label.ck input:checked + .box{background:var(--green);border-color:var(--green)}
+ label.ck input:checked + .box::after{content:"✓";font-weight:700}
+ label.ck input:checked ~ .txt{color:#7a715f;text-decoration:line-through;text-decoration-thickness:1px}
+ .txt{font-size:.66rem;line-height:1.8;display:block}
+ .txt b{color:var(--ink);font-weight:600}
+ .txt code{font-size:.6rem;background:#e9e0cc;border-radius:.2rem;padding:0 .22rem}
+ .key{background:#2f5d3a;color:#f2ecdd;border-radius:.4rem;padding:.6rem .6rem;margin:.55rem 0 0;font-size:.6rem;line-height:1.85}
+ .key b{color:#fff}
+ .grid{display:grid;gap:.6rem}
+ .case{border:1px solid var(--line);border-left:.22rem solid var(--green2);border-radius:.4rem;
+   padding:.55rem .6rem;background:#fdfaf3}
+ .case h3{font-size:.66rem;margin:0 0 .3rem;line-height:1.6;color:var(--ink)}
+ .case p{margin:0;font-size:.58rem;line-height:1.8;color:var(--ink2)}
+ .case.warn{border-left-color:var(--warn)}
+ .case.ok{border-left-color:var(--ok)}
+ .case.ask{border-left-color:var(--gold)}
+ ul.plain{margin:0;padding-left:1.05rem}
+ ul.plain li{font-size:.62rem;line-height:1.9;margin-bottom:.2rem}
+ a{color:#1c4f7c;word-break:break-all}
+ footer{margin-top:1.1rem;border-top:2px solid var(--line);padding-top:.7rem;font-size:.5rem;
+   color:#6b6354;line-height:1.85}
+ footer b{color:var(--ink2)}
+ @media(max-width:600px){
+  html{font-size:28px}
+  .wrap{padding:.5rem .45rem 2.6rem}
+  section{padding:.65rem .55rem}
+ }
+ @media print{
+  html{font-size:16px}
+  body{background:#fff}
+  .sticky{position:static}
+  section,header.top{break-inside:avoid}
+  header.top{background:#1a1a16 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>final ZE8000 · 排障檢查表</h1>
+  <p>症狀：pair 唔到 final CONNECT、左右耳不斷自己 power on、只有左邊有聲<br>
+  由「清潔」做到「判斷要唔要送修」— 逐項打勾，勾選會自動儲存</p>
+</header>
+
+<div class="sticky">
+  <div class="progrow">
+    <strong id="pcount">0 / 0 完成</strong>
+    <button class="reset" type="button" onclick="resetAll()">重設全部</button>
+  </div>
+  <div class="bar"><i id="pbar"></i></div>
+</div>
+
+<section>
+  <h2><span class="n">0</span>開始之前 · 準備物品</h2>
+  <p class="why">唔使工具都得，但準備好會快好多。全程約 20–30 分鐘。</p>
+  <label class="ck"><input type="checkbox" data-k="p1"><span class="box"></span><span class="txt">乾棉花棒 2 支（清潔金屬觸點用）</span></label>
+  <label class="ck"><input type="checkbox" data-k="p2"><span class="box"></span><span class="txt">99% 酒精或接點清潔劑（只用少量，唔可以滴水）</span></label>
+  <label class="ck"><input type="checkbox" data-k="p3"><span class="box"></span><span class="txt">USB-C 線 ＋ USB 火牛（ZE8000 盒<b>唔支援無線充電</b>）</span></label>
+  <label class="ck"><input type="checkbox" data-k="p4"><span class="box"></span><span class="txt">iPhone（已安裝 <b>final CONNECT</b> app）</span></label>
+</section>
+
+<section>
+  <h2><span class="n">1</span>充電 ＋ 清潔接點</h2>
+  <p class="why">「耳機不斷自己開機」多數係<b>盒偵測唔到耳機</b>：盒冇電、觸點污糟或耳機未坐好。呢一節成功率最高，先做。</p>
+  <label class="ck"><input type="checkbox" data-k="s1a"><span class="box"></span><span class="txt">先插 USB-C 幫<b>充電盒</b>充 30 分鐘（唔好靠盒存電去配對）</span></label>
+  <label class="ck"><input type="checkbox" data-k="s1b"><span class="box"></span><span class="txt">用<b>乾</b>棉花棒擦耳機底部金屬觸點（兩隻都要）</span></label>
+  <label class="ck"><input type="checkbox" data-k="s1c"><span class="box"></span><span class="txt">棉花棒沾<b>極少量</b> 99% 酒精，擦盒內彈針，然後<b>風乾 2 分鐘</b></span></label>
+  <label class="ck"><input type="checkbox" data-k="s1d"><span class="box"></span><span class="txt">耳機放回盒、開蓋，睇清楚<b>兩邊 LED 有冇都亮</b></span></label>
+  <label class="ck"><input type="checkbox" data-k="s1e"><span class="box"></span><span class="txt">記錄：單邊唔亮就係「該邊充唔到電」→ 去第 7 節「結果 B」</span></label>
+  <div class="key">🔑 <b>關鍵判定點</b>：兩邊 LED 都亮 ＝ 硬件供電正常，問題多數在配對／韌體。<br>只有一邊亮 ＝ 該邊接點或電池問題，重置幾多次都唔會好。</div>
+</section>
+
+<section>
+  <h2><span class="n">2</span>iPhone 徹底清除配對</h2>
+  <p class="why">final 官方講法：app <b>唔負責配對</b>，必須先在 iOS 藍牙配對成功，之後才開 app。所以要把舊記錄清乾淨。</p>
+  <label class="ck"><input type="checkbox" data-k="s2a"><span class="box"></span><span class="txt">設定 → 藍牙 → <b>ZE8000</b> → 忘記此裝置</span></label>
+  <label class="ck"><input type="checkbox" data-k="s2b"><span class="box"></span><span class="txt">關掉其他曾配對裝置嘅藍牙（iPad／Mac／Apple Watch）</span></label>
+  <label class="ck"><input type="checkbox" data-k="s2c"><span class="box"></span><span class="txt">iPhone 藍牙關掉 → 等 10 秒 → 再開（刷新藍牙堆疊）</span></label>
+</section>
+
+<section>
+  <h2><span class="n">3</span>本體重置（Factory Reset）</h2>
+  <p class="why">官方程序。注意：配對鍵在<b>充電盒</b>上，唔係在耳機上。</p>
+  <label class="ck"><input type="checkbox" data-k="s3a"><span class="box"></span><span class="txt">兩隻耳機放入盒，<b>保持開蓋</b></span></label>
+  <label class="ck"><input type="checkbox" data-k="s3b"><span class="box"></span><span class="txt">長按盒上<b>配對鍵 7 秒</b></span></label>
+  <label class="ck"><input type="checkbox" data-k="s3c"><span class="box"></span><span class="txt">見到耳機 LED <b>閃紫色</b> → 放手</span></label>
+  <label class="ck"><input type="checkbox" data-k="s3d"><span class="box"></span><span class="txt">等 5–10 秒，<b>其中一邊 LED 紅／藍交替閃</b> ＝ 重置完成，已自動入配對模式</span></label>
+  <label class="ck"><input type="checkbox" data-k="s3e"><span class="box"></span><span class="txt">若長按完全冇反應：把周圍所有裝置（連電腦）藍牙全部關掉，再試一次</span></label>
+</section>
+
+<section>
+  <h2><span class="n">4</span>重新配對</h2>
+  <p class="why">順序好重要：<b>先配對 → 確認兩耳有聲 → 最後才開 app</b>。反過來做就會卡在「正在確認裝置連線」。</p>
+  <label class="ck"><input type="checkbox" data-k="s4a"><span class="box"></span><span class="txt">iPhone 藍牙 → 揀「ZE8000」（要求 passkey 就入 <code>0000</code>）</span></label>
+  <label class="ck"><input type="checkbox" data-k="s4b"><span class="box"></span><span class="txt"><b>先播歌</b>，確認左、右兩邊都有聲（暫時唔開 app）</span></label>
+  <label class="ck"><input type="checkbox" data-k="s4c"><span class="box"></span><span class="txt">兩耳都有聲 → 才開 final CONNECT</span></label>
+  <label class="ck"><input type="checkbox" data-k="s4d"><span class="box"></span><span class="txt">app 卡在「正在確認裝置連線」→ 按畫面中央 <b>「＋」</b>；再卡 → 返第 3 節重做</span></label>
+</section>
+
+<section>
+  <h2><span class="n">5</span>韌體更新</h2>
+  <p class="why">final 官方公告：V1.8.5 曾出現「更新重複不停、無法完成」的不具合，已修；現時最新 <b>V1.8.6</b>。左右韌體不同步會出現單邊無聲。</p>
+  <label class="ck"><input type="checkbox" data-k="s5a"><span class="box"></span><span class="txt">final CONNECT 內查韌體版本，目標 <b>V1.8.6</b></span></label>
+  <label class="ck"><input type="checkbox" data-k="s5b"><span class="box"></span><span class="txt">更新前：兩耳電量足夠、手機唔離開、唔好切換藍牙</span></label>
+  <label class="ck"><input type="checkbox" data-k="s5c"><span class="box"></span><span class="txt">更新完跟官方要求做一次：<b>重置 → 刪除配對資訊 → 重新配對</b></span></label>
+  <label class="ck"><input type="checkbox" data-k="s5d"><span class="box"></span><span class="txt">再播歌確認兩耳都有聲</span></label>
+</section>
+
+<section>
+  <h2><span class="n">6</span>iPhone 音訊設定（唔好漏）</h2>
+  <p class="why">「只有一邊有聲」最隱形嘅元兇，1 分鐘搞完。</p>
+  <label class="ck"><input type="checkbox" data-k="s6a"><span class="box"></span><span class="txt">設定 → 輔助使用 → 音訊／視覺 → <b>平衡</b>拉到<b>正中</b></span></label>
+  <label class="ck"><input type="checkbox" data-k="s6b"><span class="box"></span><span class="txt"><b>單聲道音訊</b> ＝ 關閉</span></label>
+  <label class="ck"><input type="checkbox" data-k="s6c"><span class="box"></span><span class="txt">順便檢查音樂／影片 app 有冇開「單邊輸出」或耳機平衡設定</span></label>
+</section>
+
+<section>
+  <h2><span class="n">7</span>結果判斷 · 對號入座</h2>
+  <p class="why">做完上面，睇你屬邊一種，就知下一步去邊。</p>
+  <div class="grid">
+    <div class="case ok">
+      <h3>A · 兩邊 LED 都亮＋兩耳都有聲</h3>
+      <p>✅ 已解決。成因多數係接點污糟或配對記錄衝突。建議每 2–3 個月清一次接點；盒長期放電到 0 會再出事。</p>
+    </div>
+    <div class="case warn">
+      <h3>B · 有一邊 LED 唔亮</h3>
+      <p>⚠️ 該邊充唔到電。再清潔一次接點並確認耳機完全坐好；仍然唔亮 ＝ 電池或接點硬件問題 → 送修（第 8 節）。</p>
+    </div>
+    <div class="case warn">
+      <h3>C · 兩耳都亮，但單獨拎出嚟（例如右耳）完全冇聲</h3>
+      <p>⚠️ 連開機提示音都冇 ＝ 該邊單元或電池故障，唔係設定問題 → 送修。呢個唔可以靠重置解決。</p>
+    </div>
+    <div class="case ask">
+      <h3>D · 單獨有聲，但兩耳一齊用就單邊</h3>
+      <p>🔁 左右 TWS 連線／韌體問題。重做第 3 節（重置）＋第 5 節（韌體 V1.8.6），然後重新配對。</p>
+    </div>
+    <div class="case ask">
+      <h3>E · 藍牙配對正常，但 final CONNECT 一直連唔上</h3>
+      <p>🔁 先刪 app → 重啟 iPhone → 重裝 app → 開 app 前確認藍牙已連 ZE8000。app 卡住時按「＋」。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">8</span>送修</h2>
+  <p class="why">如果落到 B 或 C，就係硬件問題。香港行貨先聯絡購買店／代理商查保養；水貨或過保可走 final 官方支援。</p>
+  <ul class="plain">
+    <li>final 官方支援表單：<a href="https://support.final-inc.com/form_inquiry_cs.html" target="_blank" rel="noopener">support.final-inc.com/form_inquiry_cs.html</a></li>
+    <li>查詢時準備：購買日期、單據、型號 <b>ZE8000</b>、韌體版本、做過邊幾步</li>
+    <li>症狀描述可直接用：「左右耳反覆自動開機、配對後只有左聲道有聲、已試重置及韌體更新」</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="n">9</span>唔好做嘅事</h2>
+  <ul class="plain">
+    <li>❌ 用<b>濕</b>棉花棒或直接倒酒精入接點位（會短路、留水氣）</li>
+    <li>❌ 一邊開 app 一邊在藍牙設定反覆切換（兩邊搶連線，必卡）</li>
+    <li>❌ 放上 Qi 無線充電板（ZE8000 盒唔支援，差唔到仲會發熱）</li>
+    <li>❌ 測試期間同時連第二部手機（multipoint 會令配對判斷混亂）</li>
+    <li>❌ 未確認兩耳有聲就先開 app 設定 EQ（會誤以為「壞咗」）</li>
+  </ul>
+</section>
+
+<footer>
+  <b>資料來源</b>：final 官方 ZE8000 使用手冊（重置／配對／疑難排解）｜株式会社 final 官方公告「ZE8000 マルチポイント対応バージョンのファームウェアアップデート不具合発生と問題解消につきまして」（V1.8.5 不具合、最新 V1.8.6、更新後流程）｜final 官方支援頁 final CONNECT｜final 官方支援表單。<br>
+  <b>注意</b>：本頁係按官方資料整理嘅排障清單，<b>唔係 final 官方文件</b>。硬件有懷疑請以官方支援判斷為準。<br>
+  由 無虛 (mo mo) 整理 · 2026-11-17
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var KEY = "ze8000-check-v1";
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-k]'));
+  var bar = document.getElementById("pbar");
+  var cnt = document.getElementById("pcount");
+  var store = {};
+  try { store = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch(e){ store = {}; }
+
+  function save(){
+    try { localStorage.setItem(KEY, JSON.stringify(store)); } catch(e){}
+  }
+  function render(){
+    var done = 0;
+    boxes.forEach(function(b){
+      if (b.checked) done++;
+    });
+    var total = boxes.length;
+    var pct = total ? Math.round(done / total * 100) : 0;
+    bar.style.width = pct + "%";
+    cnt.textContent = done + " / " + total + " 完成";
+  }
+  boxes.forEach(function(b){
+    if (store[b.getAttribute("data-k")]) b.checked = true;
+    b.addEventListener("change", function(){
+      store[b.getAttribute("data-k")] = b.checked ? 1 : 0;
+      save(); render();
+    });
+  });
+  window.resetAll = function(){
+    boxes.forEach(function(b){ b.checked = false; });
+    store = {}; save(); render();
+  };
+  render();
+})();
+</script>
+</body>
+</html>
