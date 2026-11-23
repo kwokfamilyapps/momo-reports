@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-HK"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pacific World 127 航次 — 更改航線後港口位置圖</title>
 <style>
   @page { size: A4 landscape; margin: 0; }
@@ -42,6 +43,31 @@
   .two table { font-size:13.2px; margin-top:4px; }
   .two th, .two td { padding:4.2px 5px; }
   td.d { white-space:nowrap; }
+  /* ---- 手機可讀版（螢幕窄過 900px）：海報變可左右滑動，字放大 ---- */
+  @media screen and (max-width: 900px) {
+    html { font-size: 20px; }
+    body { background:#e5dcc8; }
+    .page { width:100%; height:auto; padding:10px 12px 8px; }
+    .page + .page { page-break-before:auto; margin-top:14px; }
+    h1 { font-size:1.22rem; line-height:1.35; }
+    .sub { font-size:0.82rem; line-height:1.55; }
+    .mapbox { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    .mapbox svg { min-width:980px; }
+    .keyline { font-size:0.74rem; gap:10px; line-height:1.5; }
+    .legend { columns:1; }
+    .lg { font-size:0.8rem; padding:3px 0; }
+    .lg .num { width:22px; height:22px; flex:0 0 22px; font-size:0.72rem; }
+    .lg .dt { font-size:0.74rem; }
+    .lg .tg { font-size:0.7rem; }
+    .note { font-size:0.74rem; line-height:1.7; }
+    .two { display:block; }
+    .two > div + div { margin-top:12px; }
+    table { font-size:0.8rem; }
+    th, td { padding:7px 8px; }
+    h2 { font-size:1.05rem; }
+    .box { font-size:0.8rem; line-height:1.75; }
+    .foot { position:static; text-align:right; margin-top:8px; font-size:0.7rem; }
+  }
 </style></head><body>
 
 <div class="page">
